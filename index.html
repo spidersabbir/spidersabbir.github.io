@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEXUS BLOG — Future is Now</title>
+  <title>Sabbir Shikder — Future is Now</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Syne:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
@@ -320,6 +320,75 @@
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── HERO IDENTITY (photo + name) ──────────────────────── */
+    .hero-identity {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      animation: fade-up .8s ease both;
+    }
+    .hero-avatar-wrap {
+      position: relative; flex-shrink: 0;
+      width: 130px; height: 130px;
+    }
+    .hero-avatar-ring {
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan), var(--violet), var(--cyan));
+      animation: spin-ring 6s linear infinite;
+      z-index: 0;
+    }
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+    .hero-avatar {
+      position: absolute; inset: 4px;
+      width: calc(100% - 8px); height: calc(100% - 8px);
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--bg2);          /* shows while image loads */
+      border: 3px solid var(--bg);
+      z-index: 1;
+    }
+    .hero-avatar-badge {
+      position: absolute; bottom: 4px; right: -2px;
+      background: rgba(5,8,16,.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: .18rem .55rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .55rem; letter-spacing: .14em;
+      color: #4ade80;
+      display: flex; align-items: center; gap: .35rem;
+      z-index: 2;
+    }
+    .hero-avatar-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .hero-identity-text { text-align: left; }
+    .hero-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900; line-height: 1;
+      letter-spacing: .08em;
+      color: #fff;
+      text-shadow: 0 0 30px rgba(0,240,255,.25);
+      margin: .4rem 0 .35rem;
+    }
+    .hero-name-last {
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-handle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem; letter-spacing: .18em;
+      color: var(--muted);
     }
 
     /* ─── SECTION WRAPPER ────────────────────────────────────── */
@@ -706,7 +775,7 @@
     <header>
       <div class="logo">
         <div class="logo-dot"></div>
-        NEXUS
+        SABBIR<span style="color:var(--violet);margin-left:.15em">.</span>DEV
       </div>
       <nav>
         <a href="#gallery">Gallery</a>
@@ -723,18 +792,41 @@
       <div class="hero-orb hero-orb-3"></div>
 
       <div class="hero-content">
-        <div class="hero-eyebrow">// TRANSMITTING FROM THE FUTURE</div>
+        <!-- Profile photo + identity cluster -->
+        <div class="hero-identity">
+          <div class="hero-avatar-wrap">
+            <div class="hero-avatar-ring"></div>
+            <img
+              class="hero-avatar"
+              src="https://www.facebook.com/photo.php?fbid=1422221622641425&set=pb.100045608012632.-2207520000&type=3"
+              alt="Sabbir Shikder"
+            />
+            <div class="hero-avatar-badge">
+              <span class="hero-avatar-badge-dot"></span>
+              ONLINE
+            </div>
+          </div>
+          <div class="hero-identity-text">
+            <div class="hero-eyebrow">// AUTHOR &amp; TECHNOLOGIST</div>
+            <div class="hero-name">
+              SABBIR<br /><span class="hero-name-last">SHIKDER</span>
+            </div>
+            <div class="hero-handle">@sabbir.shikder</div>
+          </div>
+        </div>
+
         <h1 class="hero-title">
           <span>THOUGHTS AT</span>
           <span>THE SPEED OF</span>
           <span class="neon-text">LIGHT</span>
         </h1>
         <p class="hero-subtitle">
-          Dispatches from the frontier of technology, design, and the human condition — where code meets consciousness.
+          Dispatches from the frontier of technology, design, and the human condition —
+          curated by <strong style="color:var(--cyan)">Sabbir Shikder</strong> where code meets consciousness.
         </p>
         <div class="hero-actions">
           <a href="#posts" class="btn-primary">Explore Articles →</a>
-          <a href="#about" class="btn-ghost">About This Blog</a>
+          <a href="#about" class="btn-ghost">About Sabbir</a>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -871,7 +963,7 @@
           <h2 class="featured-title">The Architecture of Thinking Machines: What We Got Wrong</h2>
           <p class="featured-excerpt">For decades, we assumed intelligence was a top-down process — rules encoded by humans, cascading into behavior. The revolution wasn't in the algorithms. It was in letting the data speak first. Here's what that shift means for everything we build next.</p>
           <div class="featured-meta">
-            <span>Alex Nova</span>
+            <span>Sabbir Shikder</span>
             <span class="meta-dot"></span>
             <span>Nov 14, 2024</span>
             <span class="meta-dot"></span>
@@ -995,9 +1087,9 @@
         <div class="footer-brand">
           <div class="logo">
             <div class="logo-dot"></div>
-            NEXUS
+            SABBIR<span style="color:var(--violet);margin-left:.15em">.</span>DEV
           </div>
-          <p class="footer-desc">Exploring the boundaries of technology and human experience. Written by curious minds for curious people.</p>
+          <p class="footer-desc">Exploring the boundaries of technology and human experience. Written by <strong>Sabbir Shikder</strong> for curious minds everywhere.</p>
           <div class="social-links">
             <a class="social-link" href="#" title="Twitter">𝕏</a>
             <a class="social-link" href="#" title="GitHub">⌥</a>
@@ -1038,7 +1130,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copy">© 2024 NEXUS BLOG — All rights reserved</div>
+        <div class="footer-copy">© 2024 Sabbir Shikder — All rights reserved</div>
         <div class="footer-badge">BUILT WITH <span>♥</span> ON GITHUB PAGES</div>
       </div>
     </footer>
