@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Your Name — designer, developer, and creative strategist." />
+  <title>About — Your Name</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">Your Name</a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="portfolio.html">Work</a></li>
+      <li><a href="mailto:hello@yourdomain.com" class="btn btn-accent"><span>Hire Me</span></a></li>
+    </ul>
+
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       ABOUT HERO — Portrait + Bio
+  ══════════════════════════════════════ -->
+  <main>
+    <div class="container">
+      <div class="about-hero">
+
+        <!-- Left Column: Sticky Portrait -->
+        <aside class="about-portrait fade-in">
+          <div class="about-portrait-frame">
+            <!--
+              REPLACE: assets/images/profile-about.jpg
+              Recommended: portrait or square, min 800px wide.
+              3:4 aspect ratio is enforced via CSS — object-fit handles cropping.
+            -->
+            <img
+              src="assets/images/profile-about.jpg"
+              alt="Your Name — about page portrait"
+              loading="eager"
+              width="700"
+              height="933"
+            />
+          </div>
+          <p class="about-portrait-caption">Your Name — New York, 2024</p>
+        </aside>
+
+        <!-- Right Column: Biography -->
+        <div class="about-bio">
+          <p class="section-label fade-in">About Me</p>
+
+          <h1 class="fade-in fade-in-delay-1">
+            Designing with<br><em>intention</em>.
+          </h1>
+
+          <div class="fade-in fade-in-delay-2">
+            <p>
+              I'm a multidisciplinary designer and developer with over eight years
+              of experience crafting thoughtful digital experiences. My work lives
+              at the intersection of visual design, front-end development, and
+              strategic thinking.
+            </p>
+
+            <p>
+              I believe the best design is invisible — it solves problems elegantly
+              and puts the human experience first. Whether working on a brand identity
+              system, a complex web application, or a simple landing page, I bring the
+              same rigorous attention to detail to every project.
+            </p>
+
+            <p>
+              My background spans both the analytical and the creative. I studied
+              Communication Design at Parsons School of Design, and before going
+              independent, I worked at agencies in New York and London helping
+              global clients like <em>Agency A</em>, <em>Studio B</em>, and
+              <em>Brand C</em> find their visual voice.
+            </p>
+
+            <p>
+              When I'm not at my desk, you'll find me exploring museums, shooting
+              35mm film, or obsessing over the typography in restaurant menus.
+            </p>
+          </div>
+
+          <div class="fade-in fade-in-delay-3" style="margin-top: 2.5rem;">
+            <a href="assets/images/resume.pdf" class="btn" target="_blank" rel="noopener">
+              <span>Download Résumé</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /container -->
+
+    <hr class="rule" />
+
+    <!-- ══════════════════════════════════════
+         SKILLS
+    ══════════════════════════════════════ -->
+    <section class="skills-section" aria-label="Core skills">
+      <div class="container">
+        <p class="section-label fade-in">Expertise</p>
+        <h2 class="fade-in fade-in-delay-1">What I Do</h2>
+
+        <div class="skills-grid">
+
+          <div class="skill-item fade-in fade-in-delay-1">
+            <h3>UI / UX Design</h3>
+            <p>
+              User research, wireframing, prototyping, and high-fidelity interface
+              design. Figma-first workflow with deep accessibility awareness.
+            </p>
+          </div>
+
+          <div class="skill-item fade-in fade-in-delay-2">
+            <h3>Front-End Development</h3>
+            <p>
+              Semantic HTML, modern CSS, and vanilla JavaScript. React for
+              component-driven UIs. Performance-obsessed, pixel-precise execution.
+            </p>
+          </div>
+
+          <div class="skill-item fade-in fade-in-delay-3">
+            <h3>Brand Identity</h3>
+            <p>
+              Visual identity systems, logo design, typography selection, color
+              strategy, and comprehensive brand guidelines for lasting consistency.
+            </p>
+          </div>
+
+          <div class="skill-item fade-in fade-in-delay-4">
+            <h3>Art Direction</h3>
+            <p>
+              Visual storytelling, photography direction, layout design for print
+              and digital, and editorial design across long-form content.
+            </p>
+          </div>
+
+          <div class="skill-item fade-in fade-in-delay-2">
+            <h3>Motion Design</h3>
+            <p>
+              CSS and JavaScript animations, After Effects for video and explainer
+              content, and interaction microanimations that elevate usability.
+            </p>
+          </div>
+
+          <div class="skill-item fade-in fade-in-delay-3">
+            <h3>Strategy &amp; Consulting</h3>
+            <p>
+              Brand positioning, competitive audits, design system architecture,
+              and team workshops for clients navigating creative transformation.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ══════════════════════════════════════
+         EXPERIENCE TIMELINE
+    ══════════════════════════════════════ -->
+    <section aria-label="Experience timeline">
+      <div class="container">
+        <p class="section-label fade-in">Experience</p>
+        <h2 class="fade-in fade-in-delay-1">Timeline</h2>
+
+        <div class="timeline" role="list">
+
+          <div class="timeline-entry fade-in" role="listitem">
+            <div class="timeline-year">2022 — Present</div>
+            <div class="timeline-content">
+              <h3>Independent Practice</h3>
+              <p class="timeline-role">Freelance Designer &amp; Developer</p>
+              <p>
+                Working directly with founders, agencies, and established brands
+                on identity, web, and product design projects across Europe and
+                North America.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-entry fade-in" role="listitem">
+            <div class="timeline-year">2019 — 2022</div>
+            <div class="timeline-content">
+              <h3>Studio Name</h3>
+              <p class="timeline-role">Senior Designer</p>
+              <p>
+                Led design on brand and digital projects for clients in the luxury,
+                hospitality, and technology sectors. Managed a small team of junior
+                designers and coordinated with development partners.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-entry fade-in" role="listitem">
+            <div class="timeline-year">2016 — 2019</div>
+            <div class="timeline-content">
+              <h3>Agency Name</h3>
+              <p class="timeline-role">UI/UX Designer</p>
+              <p>
+                Designed web and mobile interfaces for a range of industries.
+                Collaborated closely with product managers and engineers in
+                an agile environment.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-entry fade-in" role="listitem">
+            <div class="timeline-year">2012 — 2016</div>
+            <div class="timeline-content">
+              <h3>Parsons School of Design</h3>
+              <p class="timeline-role">BFA, Communication Design</p>
+              <p>
+                Graduated with honors. Thesis project explored the relationship
+                between editorial design and reader comprehension in long-form
+                digital journalism.
+              </p>
+            </div>
+          </div>
+
+        </div><!-- /timeline -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">Your Name</span>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="portfolio.html">Work</a>
+          <a href="mailto:hello@yourdomain.com">Contact</a>
+        </nav>
+        <p class="footer-copy">&copy; <span id="year"></span> Your Name. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
