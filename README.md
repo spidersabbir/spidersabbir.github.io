@@ -1,113 +1,87 @@
-# Personal Portfolio — GitHub Pages
+# Sabbir Shikder — Personal Website
 
-A production-ready, ultra-minimalist personal portfolio.
-No build steps. No frameworks. Pure HTML, CSS, and JavaScript.
+A modern, minimalist, timeless personal site for sharing photos and the stories
+behind them. No frameworks, no build step — just HTML, CSS, and a little
+JavaScript. It runs perfectly on GitHub Pages.
 
----
-
-## Folder Structure
-
-```
-your-repo/
-├── index.html              ← Home page (hero + featured work)
-├── about.html              ← About Me (portrait, bio, skills, timeline)
-├── portfolio.html          ← Full Work showcase (grid + filter)
-├── style.css               ← All styles, variables, animations
-├── script.js               ← Scroll behavior, fade-ins, filter, parallax
-├── README.md
-└── assets/
-    └── images/
-        ├── profile-hero.jpg    ← Hero portrait (index.html) — portrait orientation recommended
-        ├── profile-about.jpg   ← About page portrait — portrait/square recommended
-        ├── project-1.jpg       ← Featured + portfolio project image
-        ├── project-2.jpg
-        ├── project-3.jpg
-        ├── project-4.jpg
-        ├── project-5.jpg
-        ├── project-6.jpg
-        ├── project-7.jpg
-        ├── project-8.jpg
-        ├── project-9.jpg
-        └── resume.pdf          ← Optional: your résumé (linked from about.html)
-```
+Live site: **https://spidersabbir.github.io**
 
 ---
 
-## Deploying to GitHub Pages
+## ✨ How to post a new photo (the easy part)
 
-1. Create a new repository named `yourusername.github.io` (for root URL)
-   or any name like `portfolio` (for `yourusername.github.io/portfolio`).
-2. Push all files to the `main` branch.
-3. Go to **Settings → Pages → Source** and select `main` / `root`.
-4. Your site will be live at `https://yourusername.github.io` within a minute.
+You only ever touch **one file: `posts.js`**.
 
----
+1. Put your photo inside the **`assets/images/`** folder
+   (any size or shape — the layout adjusts automatically).
+2. Open **`posts.js`**.
+3. Copy one block and paste it at the **top** of the list (newest first):
 
-## Customizing Content
+   ```js
+   {
+     image: "assets/images/my-new-photo.jpg",
+     caption: "A short, personal caption.",
+     date: "May 2026",          // optional — use "" to hide
+     location: "Dhaka",          // optional — use "" to hide
+   },
+   ```
 
-### Step 1 — Replace placeholder text
-Search all `.html` files for `Your Name` and replace with your name.
-Replace `hello@yourdomain.com` with your real email.
+4. Change the four values to match your photo.
+5. Save and publish. Your photo appears on the **Gallery** page and in the
+   **Latest moments** section of the home page — automatically.
 
-### Step 2 — Add your images
-
-All images go in `assets/images/`. The CSS uses `object-fit: cover` on
-every image, so you **do not need to resize or crop** — just drop them in.
-Recommended minimum dimensions:
-
-| File                | Use                         | Min Width | Tip                         |
-|---------------------|-----------------------------|-----------|------------------------------|
-| `profile-hero.jpg`  | Home page hero              | 1200px    | Portrait orientation         |
-| `profile-about.jpg` | About page sticky portrait  | 800px     | Portrait or square           |
-| `project-N.jpg`     | Project thumbnails          | 800px     | Landscape (16:9 or 4:3)      |
-
-### Step 3 — Edit your bio & projects
-
-- **index.html**: Update hero headline, intro paragraph, and 3 featured project cards.
-- **about.html**: Replace biography paragraphs, skills, and timeline entries.
-- **portfolio.html**: Add/remove `<article class="portfolio-item">` blocks. Set `data-category` to one of: `brand` | `web` | `dev` | `print`.
-
-### Step 4 — Add more portfolio items
-
-Copy any `<article class="portfolio-item ...">` block in `portfolio.html`
-and paste it at the end of the `.portfolio-grid`. The grid layout cycles
-automatically — no CSS changes needed.
-
-### Step 5 — Change accent color
-
-Open `style.css` and find:
-
-```css
---accent: #c8a96e;
-```
-
-Replace `#c8a96e` with any hex color you like. Everything accent-colored
-(hover states, section labels, CTA button) will update automatically.
+That's it. You never have to edit the page layout.
 
 ---
 
-## Typography
+## 📄 Pages
 
-Fonts are loaded via Google Fonts (no install needed):
-- **Display / Headings**: Cormorant Garamond — editorial, elegant serif
-- **Body / UI**: DM Sans — clean, legible geometric sans-serif
-
-To change fonts, replace the `@import` URL at the top of `style.css`
-and update the `--font-display` and `--font-body` variables.
-
----
-
-## Sections Quick Reference
-
-| Page             | Sections                                         |
-|------------------|--------------------------------------------------|
-| `index.html`     | Nav, Hero, Featured Work (3 cards), Footer       |
-| `about.html`     | Nav, Portrait + Bio, Skills Grid, Timeline, Footer |
-| `portfolio.html` | Nav, Hero, Filter Tabs, 9-item Grid, CTA, Footer |
+| File           | What it is                                                        |
+|----------------|-------------------------------------------------------------------|
+| `index.html`   | Home — welcome, latest 3 photos, short about, contact             |
+| `gallery.html` | The full photo feed (all photos, newest first, click to enlarge)  |
+| `about.html`   | About you — portrait, short bio, quick facts                      |
+| `posts.js`     | **Your photos + captions** (the only file you edit regularly)     |
+| `style.css`    | All styling and the design system                                 |
+| `script.js`    | Gallery rendering, lightbox, menu, animations (no need to edit)   |
 
 ---
 
-## Browser Support
+## 🖼️ Recommended images
 
-Works in all modern browsers (Chrome, Firefox, Safari, Edge).
-No polyfills needed. JavaScript gracefully degrades if disabled.
+Place all images in `assets/images/`.
+
+| File              | Used for                | Tip                                  |
+|-------------------|-------------------------|--------------------------------------|
+| `portrait.jpg`    | About page + home photo | A clear portrait of you              |
+| `photo-1.jpg` …   | Gallery photos          | Any orientation; ~1200px wide is great |
+
+If an image is missing, the site shows a tidy placeholder instead of breaking,
+so it always looks intentional.
+
+---
+
+## 🎨 Make it yours
+
+- **Your name / links:** the name appears in the nav, footer, and titles.
+  The Facebook link points to your profile. Update the email (`hello@example.com`)
+  in `index.html`, `gallery.html`, and `about.html` to a real address if you want one.
+- **Your bio:** edit the text in `about.html`.
+- **Accent colour:** open `style.css` and change `--accent: #a9774f;` to any colour.
+  Everything accented updates at once.
+- **Fonts:** Fraunces (headings) + Inter (text), loaded free from Google Fonts.
+
+---
+
+## 🚀 Publishing on GitHub Pages
+
+This repo is named `spidersabbir.github.io`, so GitHub Pages serves it at the
+root automatically:
+
+1. Commit and push your changes to the `main` branch.
+2. In the repo: **Settings → Pages → Source → `main` / root** (if not already set).
+3. Your site is live at **https://spidersabbir.github.io** within a minute.
+
+---
+
+Built with care — simple to run, simple to grow.

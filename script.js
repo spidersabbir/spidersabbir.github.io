@@ -1,162 +1,207 @@
 /* ============================================================
-   SCRIPT.JS — Portfolio JavaScript
-   Handles: nav scroll state, mobile menu, fade-in observers,
-            portfolio filter, page transitions
+   SCRIPT.JS — Sabbir Shikder · Personal Site
+   Renders the photo gallery from posts.js, powers the lightbox,
+   navigation, scroll reveals, and graceful image fallbacks.
+   You should not need to edit this file to add photos —
+   just edit posts.js.
    ============================================================ */
 
 (function () {
-  'use strict';
+  "use strict";
 
-  /* ── Nav: Scroll State ── */
-  const nav = document.querySelector('.nav');
-
-  function handleNavScroll() {
-    if (!nav) return;
-    if (window.scrollY > 40) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+  /* ---- Helper: escape text so captions are safe ---- */
+  function esc(str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
-  window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll(); // run on load
+  /* Photos come from posts.js (window.POSTS). Empty list = friendly message. */
+  var posts = Array.isArray(window.POSTS) ? window.POSTS : [];
 
-  /* ── Nav: Mobile Menu ── */
-  const toggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  /* ============================================================
+     1. RENDER THE GALLERY
+     ============================================================ */
+  function metaLine(post) {
+    var bits = [];
+    if (post.date) bits.push(esc(post.date));
+    if (post.location) bits.push(esc(post.location));
+    if (!bits.length) return "";
+    return bits.join(' <span class="dot"></span> ');
+  }
 
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      navLinks.classList.toggle('open', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+  function renderGallery(el, limit) {
+    if (!el) return;
+    var list = (typeof limit === "number" && limit > 0) ? posts.slice(0, limit) : posts;
+
+    if (!list.length) {
+      el.outerHTML = '<p class="gallery-empty">No photos yet — add your first one in posts.js.</p>';
+      return;
+    }
+
+    var html = "";
+    list.forEach(function (post, i) {
+      // The data-index points back to the full posts array for the lightbox.
+      var realIndex = posts.indexOf(post);
+      html +=
+        '<article class="post reveal" data-index="' + realIndex + '" tabindex="0" role="button" aria-label="Open photo">' +
+          '<div class="post-media">' +
+            '<img src="' + esc(post.image) + '" alt="' + esc(post.caption) + '" loading="lazy" ' +
+              'onerror="this.parentElement.classList.add(\'is-placeholder\'); this.parentElement.innerHTML=\'<span>Add ' + esc(post.image).replace(/^.*\//, "") + '</span>\';" />' +
+            '<span class="expand" aria-hidden="true">&#10063;</span>' +
+          '</div>' +
+          '<div class="post-body">' +
+            '<p class="post-caption">' + esc(post.caption) + '</p>' +
+            (metaLine(post) ? '<div class="post-meta">' + metaLine(post) + '</div>' : '') +
+          '</div>' +
+        '</article>';
     });
+    el.innerHTML = html;
+  }
 
-    // Close on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.classList.remove('open');
-        navLinks.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    });
+  var recentEl = document.getElementById("recent-gallery");
+  var fullEl = document.getElementById("full-gallery");
+  if (recentEl) renderGallery(recentEl, parseInt(recentEl.dataset.limit, 10) || 3);
+  if (fullEl) renderGallery(fullEl, 0);
 
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target) && navLinks.classList.contains('open')) {
-        toggle.classList.remove('open');
-        navLinks.classList.remove('open');
-        document.body.style.overflow = '';
+  /* ============================================================
+     2. LIGHTBOX
+     ============================================================ */
+  var lightbox = document.getElementById("lightbox");
+
+  if (lightbox && posts.length) {
+    var lbImg = document.getElementById("lb-img");
+    var lbCap = document.getElementById("lb-caption");
+    var lbMeta = document.getElementById("lb-meta");
+    var btnClose = lightbox.querySelector(".lb-close");
+    var btnPrev = lightbox.querySelector(".lb-prev");
+    var btnNext = lightbox.querySelector(".lb-next");
+    var current = 0;
+
+    function showPhoto(index) {
+      current = (index + posts.length) % posts.length;
+      var post = posts[current];
+      lbImg.src = post.image;
+      lbImg.alt = post.caption || "";
+      lbCap.textContent = post.caption || "";
+      lbMeta.innerHTML = metaLine(post);
+    }
+
+    function openLightbox(index) {
+      showPhoto(index);
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      btnClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lbImg.src = "";
+    }
+
+    // Open when a post is clicked (event delegation across all galleries)
+    document.addEventListener("click", function (e) {
+      var card = e.target.closest(".post");
+      if (card && card.dataset.index != null) {
+        openLightbox(parseInt(card.dataset.index, 10));
       }
     });
-  }
 
-  /* ── Active Nav Link ── */
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-      link.classList.add('active');
-    }
-  });
-
-  /* ── Fade-in: Intersection Observer ── */
-  const fadeEls = document.querySelectorAll('.fade-in');
-
-  if (fadeEls.length > 0) {
-    const fadeObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            // Unobserve after animation — no need to re-trigger
-            fadeObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px',
-      }
-    );
-
-    fadeEls.forEach(el => fadeObserver.observe(el));
-  }
-
-  /* ── Portfolio Filter ── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-  if (filterBtns.length > 0) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-
-        portfolioItems.forEach(item => {
-          const category = item.dataset.category;
-
-          if (filter === 'all' || category === filter) {
-            item.classList.remove('hidden');
-            // Re-trigger fade-in for filtered items
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-              });
-            });
-          } else {
-            item.classList.add('hidden');
-          }
-        });
-      });
-    });
-  }
-
-  /* ── Smooth scroll for anchor links ── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
-      if (target) {
+    // Keyboard: open on Enter/Space when a card is focused
+    document.addEventListener("keydown", function (e) {
+      var card = document.activeElement;
+      if (card && card.classList && card.classList.contains("post") &&
+          (e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        openLightbox(parseInt(card.dataset.index, 10));
       }
     });
-  });
 
-  /* ── Parallax Hero Image (subtle) ── */
-  const heroImageWrap = document.querySelector('.hero-image-wrap');
+    btnClose.addEventListener("click", closeLightbox);
+    btnPrev.addEventListener("click", function () { showPhoto(current - 1); });
+    btnNext.addEventListener("click", function () { showPhoto(current + 1); });
 
-  if (heroImageWrap) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      const img = heroImageWrap.querySelector('img');
-      if (img && scrolled < window.innerHeight) {
-        img.style.transform = `translateY(${scrolled * 0.12}px)`;
-      }
-    }, { passive: true });
+    // Click the dark backdrop (but not the image/buttons) to close
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation while open
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showPhoto(current - 1);
+      else if (e.key === "ArrowRight") showPhoto(current + 1);
+    });
   }
 
-  /* ── Hero initial stagger ── */
-  // Hero content items animate in with a stagger on page load
-  const heroItems = document.querySelectorAll('.hero-animate');
-  heroItems.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(22px)';
-    setTimeout(() => {
-      el.style.transition = 'opacity 0.8s cubic-bezier(0, 0, 0.2, 1), transform 0.8s cubic-bezier(0, 0, 0.2, 1)';
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }, 200 + i * 130);
+  /* ============================================================
+     3. NAVIGATION — scroll state + active link + mobile menu
+     ============================================================ */
+  var nav = document.querySelector(".nav");
+  function onScroll() {
+    if (!nav) return;
+    nav.classList.toggle("scrolled", window.scrollY > 30);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Active link based on current page
+  var page = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".nav-links a").forEach(function (a) {
+    var href = a.getAttribute("href");
+    if (href === page || (page === "" && href === "index.html")) {
+      a.classList.add("active");
+    }
   });
 
+  // Mobile menu toggle
+  var toggle = document.querySelector(".nav-toggle");
+  var navLinks = document.querySelector(".nav-links");
+  if (toggle && navLinks) {
+    function setMenu(open) {
+      toggle.classList.toggle("open", open);
+      navLinks.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+    toggle.addEventListener("click", function () {
+      setMenu(!toggle.classList.contains("open"));
+    });
+    navLinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { setMenu(false); });
+    });
+    document.addEventListener("click", function (e) {
+      if (navLinks.classList.contains("open") && !nav.contains(e.target)) setMenu(false);
+    });
+  }
+
+  /* ============================================================
+     4. SCROLL REVEAL
+     ============================================================ */
+  var revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && revealEls.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ============================================================
+     5. CURRENT YEAR IN FOOTER
+     ============================================================ */
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
