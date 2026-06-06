@@ -1,149 +1,1431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Sabbir Shikder — a personal space for photos, moments, and the stories behind them." />
-  <meta property="og:title" content="Sabbir Shikder" />
-  <meta property="og:description" content="A personal space for photos, moments, and the stories behind them." />
-  <meta property="og:type" content="website" />
-  <title>Sabbir Shikder</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Add your own icon at assets/images/favicon.png and uncomment: -->
-  <!-- <link rel="icon" href="assets/images/favicon.png" /> -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOLÈME — Walk With Intention</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f7f5f0;
+    --cream: #ede9e1;
+    --gold: #c9a96e;
+    --gold-dark: #9e7a45;
+    --grey: #888;
+    --light-grey: #d4d0c8;
+    --red: #c0392b;
+    --card-bg: #141414;
+    --border: rgba(201,169,110,0.25);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+  /* Custom cursor */
+  #cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,169,110,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.12s ease-out, width 0.2s, height 0.2s;
+  }
+  body:hover #cursor { opacity: 1; }
+
+  /* Typography */
+  .serif { font-family: 'Cormorant Garamond', serif; }
+  .mono { font-family: 'Space Mono', monospace; }
+  h1,h2,h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0.02em; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.8rem 4rem;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    padding: 1.2rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 600;
+    letter-spacing: 0.25em; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; list-style: none; }
+  .nav-links a {
+    color: var(--light-grey); font-size: 0.8rem; letter-spacing: 0.15em;
+    text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cart {
+    position: relative; cursor: pointer; color: var(--white);
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    background: transparent; border: 1px solid var(--gold);
+    padding: 0.5rem 1.4rem; transition: all 0.2s;
+  }
+  .nav-cart:hover { background: var(--gold); color: var(--black); }
+  .cart-count {
+    position: absolute; top: -8px; right: -8px;
+    background: var(--gold); color: var(--black);
+    font-size: 0.65rem; width: 18px; height: 18px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: 'Space Mono', monospace;
+  }
+
+  /* Hero */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #111 40%, #0f0f0f 100%);
+  }
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(12rem, 22vw, 20rem);
+    font-weight: 300; letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,169,110,0.08);
+    white-space: nowrap; pointer-events: none;
+    z-index: 0;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    padding: 0 4rem; max-width: 900px;
+  }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    font-weight: 300; line-height: 0.95;
+    margin-bottom: 2rem;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1rem; color: var(--grey); line-height: 1.7;
+    max-width: 480px; margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--black);
+    padding: 1rem 2.5rem; font-size: 0.8rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+  .btn-secondary {
+    color: var(--white); font-size: 0.8rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    border: none; background: transparent; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; gap: 0.8rem;
+    transition: color 0.2s; text-decoration: none;
+  }
+  .btn-secondary::after {
+    content: '→'; transition: transform 0.2s;
+  }
+  .btn-secondary:hover { color: var(--gold); }
+  .btn-secondary:hover::after { transform: translateX(4px); }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; right: 4rem;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--grey);
+    writing-mode: vertical-rl; text-orientation: mixed;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-scroll::before {
+    content: ''; display: block; width: 1px; height: 60px; background: var(--gold);
+  }
+  .hero-badge {
+    position: absolute; top: 40%; right: 6rem;
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; text-align: center;
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .hero-badge-inner { animation: rotate 20s linear infinite reverse; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); }
+  .floating-shoe {
+    position: absolute; right: 4rem; top: 50%;
+    transform: translateY(-50%);
+    width: 420px; height: 300px;
+    display: flex; align-items: center; justify-content: center;
+    filter: drop-shadow(0 20px 60px rgba(201,169,110,0.15));
+  }
+
+  /* Section styles */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before { content: '—'; }
+
+  /* Brand Story */
+  #brand-story { background: #0d0d0d; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .story-title { font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.1; margin-bottom: 2rem; }
+  .story-title em { color: var(--gold); font-style: italic; }
+  .story-text { color: var(--grey); line-height: 1.9; font-size: 0.95rem; font-weight: 300; }
+  .story-text p + p { margin-top: 1.5rem; }
+  .story-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+    border-top: 1px solid var(--border); padding-top: 3rem;
+  }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); margin-top: 0.3rem; }
+  .story-visual {
+    position: relative; height: 500px;
+    background: #161616; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .story-visual::before {
+    content: 'SOLÈME'; position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem; font-weight: 300; color: transparent;
+    -webkit-text-stroke: 1px rgba(201,169,110,0.12);
+    letter-spacing: 0.3em;
+  }
+  .story-visual svg { position: relative; z-index: 1; }
+
+  /* Collection */
+  #collection { background: var(--black); }
+  .collection-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .collection-title { font-size: clamp(2.5rem, 4vw, 3.5rem); }
+  .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-tab {
+    padding: 0.5rem 1.2rem; font-size: 0.75rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--grey); cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-tab.active, .filter-tab:hover {
+    background: var(--gold); border-color: var(--gold); color: var(--black);
+  }
+  .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .product-card {
+    position: relative; background: var(--card-bg);
+    overflow: hidden; cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .product-card:hover { transform: scale(1.01); z-index: 2; }
+  .product-card:hover .product-hover { opacity: 1; }
+  .product-card:hover .product-img-wrap svg { transform: scale(1.05); }
+  .product-img-wrap {
+    height: 280px; display: flex; align-items: center; justify-content: center;
+    background: #1a1a1a; position: relative; overflow: hidden;
+  }
+  .product-img-wrap svg { transition: transform 0.4s ease; }
+  .product-badge {
+    position: absolute; top: 1rem; left: 1rem;
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; background: var(--gold); color: var(--black);
+  }
+  .product-hover {
+    position: absolute; inset: 0; background: rgba(10,10,10,0.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .product-info { padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
+  .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; }
+  .product-price { font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--gold); }
+  .product-price .taka { font-size: 0.7rem; opacity: 0.7; }
+  .product-sizes { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .size-chip {
+    font-size: 0.65rem; padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border); color: var(--grey);
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'Space Mono', monospace;
+  }
+  .size-chip:hover { border-color: var(--gold); color: var(--gold); }
+  .size-chip.selected { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .add-btn {
+    width: 100%; padding: 0.9rem; background: var(--gold); color: var(--black);
+    border: none; cursor: pointer; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    margin-top: 1rem; transition: all 0.2s;
+  }
+  .add-btn:hover { background: var(--white); }
+
+  /* Positioning / Brand Pillars */
+  #brand-pillars { background: #080808; }
+  .pillars-title { font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 4rem; max-width: 600px; }
+  .pillars-title em { color: var(--gold); font-style: italic; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .pillar {
+    background: var(--black); padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+  .pillar:hover { background: #141414; }
+  .pillar-num {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--gold); letter-spacing: 0.2em; margin-bottom: 1.5rem;
+  }
+  .pillar-icon { font-size: 2rem; margin-bottom: 1.2rem; color: var(--gold); }
+  .pillar h3 { font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.2; }
+  .pillar p { font-size: 0.85rem; color: var(--grey); line-height: 1.7; }
+
+  /* Target Market */
+  #target-market { background: #0d0d0d; }
+  .market-intro { max-width: 700px; margin-bottom: 5rem; }
+  .market-intro h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1.5rem; }
+  .market-intro p { color: var(--grey); line-height: 1.8; }
+  .market-segments { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .segment {
+    border: 1px solid var(--border); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .segment:hover { border-color: var(--gold); }
+  .segment::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: linear-gradient(90deg, var(--gold), transparent);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .segment:hover::after { transform: scaleX(1); }
+  .seg-age {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.5rem;
+    color: var(--gold); font-weight: 300; line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .seg-label {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 1.5rem;
+  }
+  .seg-title { font-size: 1.2rem; margin-bottom: 1rem; }
+  .seg-desc { font-size: 0.85rem; color: var(--grey); line-height: 1.7; }
+  .seg-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .seg-tag {
+    font-size: 0.65rem; padding: 0.25rem 0.7rem;
+    border: 1px solid var(--border); color: var(--grey);
+    letter-spacing: 0.1em;
+  }
+
+  /* Pricing BD */
+  #pricing { background: var(--black); }
+  .pricing-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem; }
+  .pricing-title { font-size: clamp(2rem, 3.5vw, 3rem); }
+  .bd-note {
+    background: rgba(201,169,110,0.1); border: 1px solid var(--border);
+    padding: 1rem 1.5rem; max-width: 320px;
+  }
+  .bd-note p { font-size: 0.8rem; color: var(--grey); line-height: 1.6; }
+  .bd-note strong { color: var(--gold); }
+  .pricing-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .price-tier {
+    background: var(--black); padding: 3rem 2.5rem;
+    position: relative; transition: background 0.3s;
+  }
+  .price-tier.featured { background: #141414; }
+  .price-tier.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--black);
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.2em; padding: 0.3rem 1rem;
+  }
+  .tier-name { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .tier-price { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; margin-bottom: 0.5rem; }
+  .tier-price-sub { font-size: 0.8rem; color: var(--grey); margin-bottom: 2.5rem; }
+  .tier-features { list-style: none; }
+  .tier-features li { padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: var(--grey); display: flex; align-items: center; gap: 0.8rem; }
+  .tier-features li::before { content: '✓'; color: var(--gold); font-size: 0.75rem; }
+  .tier-features li.no::before { content: '×'; color: #444; }
+  .tier-features li.no { color: #333; }
+
+  /* How to Order */
+  #how-to-order { background: #0a0a0a; }
+  .order-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-top: 4rem; }
+  .order-step { position: relative; }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300;
+    color: transparent; -webkit-text-stroke: 1px rgba(201,169,110,0.3);
+    line-height: 1; margin-bottom: 1.5rem;
+  }
+  .step-title { font-size: 1.1rem; margin-bottom: 0.8rem; }
+  .step-desc { font-size: 0.85rem; color: var(--grey); line-height: 1.7; }
+  .order-step::after {
+    content: '→'; position: absolute; top: 1.5rem; right: -1.5rem;
+    color: rgba(201,169,110,0.3); font-size: 1.5rem;
+  }
+  .order-step:last-child::after { display: none; }
+
+  /* Order Form */
+  #order-form { background: #0d0d0d; }
+  .order-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .form-title { font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 0.5rem; }
+  .form-subtitle { color: var(--grey); font-size: 0.9rem; margin-bottom: 3rem; line-height: 1.7; }
+  .order-summary {
+    background: #141414; border: 1px solid var(--border);
+    padding: 2rem; margin-bottom: 2rem;
+  }
+  .order-summary h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1.5rem; }
+  .order-item { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; }
+  .order-item:last-child { border: none; font-weight: 500; color: var(--gold); font-size: 0.95rem; }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); display: block; margin-bottom: 0.5rem; font-family: 'Space Mono', monospace; }
+  input, select, textarea {
+    width: 100%; background: #141414; border: 1px solid var(--border);
+    color: var(--white); padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+  input::placeholder, textarea::placeholder { color: #444; }
+  select option { background: #141414; }
+  textarea { resize: vertical; min-height: 100px; }
+  .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 0.5rem; }
+  .payment-btn {
+    padding: 0.8rem; border: 1px solid var(--border);
+    background: transparent; color: var(--grey);
+    cursor: pointer; font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    text-transform: uppercase; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .payment-btn.active, .payment-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.08); }
+  .submit-btn {
+    width: 100%; padding: 1.2rem; background: var(--gold); color: var(--black);
+    border: none; cursor: pointer; font-size: 0.85rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    margin-top: 2rem; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .submit-btn::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%); transition: transform 0.3s;
+  }
+  .submit-btn:hover::after { transform: translateX(0); }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,169,110,0.3); }
+
+  /* Testimonials */
+  #testimonials { background: var(--black); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+  .testimonial {
+    border: 1px solid var(--border); padding: 2.5rem;
+    position: relative; transition: border-color 0.3s;
+  }
+  .testimonial:hover { border-color: var(--gold); }
+  .testimonial::before {
+    content: '"'; position: absolute; top: 1.5rem; right: 2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 5rem;
+    color: rgba(201,169,110,0.1); line-height: 1;
+  }
+  .testimonial-text { font-size: 0.9rem; color: var(--grey); line-height: 1.8; margin-bottom: 2rem; font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(201,169,110,0.15); display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold);
+    border: 1px solid var(--border);
+  }
+  .author-name { font-size: 0.85rem; font-weight: 500; }
+  .author-loc { font-size: 0.75rem; color: var(--grey); font-family: 'Space Mono', monospace; }
+  .stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+
+  /* Delivery Banner */
+  #delivery { background: var(--gold); padding: 2rem 4rem; }
+  .delivery-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+  .delivery-item { display: flex; align-items: center; gap: 1rem; }
+  .delivery-icon { font-size: 1.5rem; }
+  .delivery-text strong { display: block; font-size: 0.9rem; color: var(--black); font-weight: 500; letter-spacing: 0.05em; }
+  .delivery-text span { font-size: 0.75rem; color: rgba(10,10,10,0.6); }
+
+  /* Footer */
+  footer { background: #070707; border-top: 1px solid var(--border); padding: 5rem 4rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .footer-brand h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; letter-spacing: 0.2em; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--grey); line-height: 1.8; max-width: 280px; }
+  .footer-col h4 { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.8rem; }
+  .footer-col ul li a { color: var(--grey); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--grey); flex-wrap: wrap; gap: 1rem; }
+  .social-links { display: flex; gap: 1rem; }
+  .social-links a {
+    width: 36px; height: 36px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--grey); font-size: 0.7rem; text-decoration: none;
+    transition: all 0.2s; font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+  .social-links a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Cart Sidebar */
+  #cart-sidebar {
+    position: fixed; top: 0; right: -480px; width: 480px; height: 100vh;
+    background: #0f0f0f; border-left: 1px solid var(--border);
+    z-index: 200; transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  #cart-sidebar.open { right: 0; }
+  .cart-header { padding: 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .cart-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+  .cart-close {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--white); width: 36px; height: 36px;
+    cursor: pointer; font-size: 1rem; transition: all 0.2s;
+  }
+  .cart-close:hover { border-color: var(--gold); color: var(--gold); }
+  .cart-items { flex: 1; padding: 1.5rem 2rem; overflow-y: auto; }
+  .cart-empty { text-align: center; padding: 3rem; color: var(--grey); }
+  .cart-empty p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+  .cart-item { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .cart-item-img {
+    width: 80px; height: 80px; background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .cart-item-details { flex: 1; }
+  .cart-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.3rem; }
+  .cart-item-size { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--grey); }
+  .cart-item-price { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--gold); margin-top: 0.5rem; }
+  .cart-item-qty { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.8rem; }
+  .qty-btn { background: transparent; border: 1px solid var(--border); color: var(--white); width: 26px; height: 26px; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
+  .qty-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .cart-footer { padding: 2rem; border-top: 1px solid var(--border); }
+  .cart-total { display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 0.9rem; }
+  .cart-total strong { color: var(--gold); font-family: 'Space Mono', monospace; font-size: 1rem; }
+  .checkout-btn {
+    width: 100%; padding: 1rem; background: var(--gold); color: var(--black);
+    border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 500; transition: background 0.2s;
+  }
+  .checkout-btn:hover { background: var(--white); }
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 150; opacity: 0; pointer-events: none; transition: opacity 0.4s;
+  }
+  .overlay.show { opacity: 1; pointer-events: all; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--gold); color: var(--black); padding: 1rem 2rem;
+    font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em;
+    z-index: 500; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Success Modal */
+  #success-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+    z-index: 300; display: none; align-items: center; justify-content: center;
+  }
+  #success-modal.show { display: flex; }
+  .modal-box {
+    background: #141414; border: 1px solid var(--border);
+    padding: 4rem; max-width: 500px; text-align: center;
+    position: relative; animation: slideUp 0.4s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-check { font-size: 3rem; color: var(--gold); margin-bottom: 1.5rem; }
+  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom: 1rem; }
+  .modal-sub { color: var(--grey); line-height: 1.7; font-size: 0.9rem; }
+  .modal-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--grey); width: 32px; height: 32px; cursor: pointer;
+    font-size: 0.9rem; transition: all 0.2s;
+  }
+  .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+  .modal-order-id { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--gold); margin-top: 1.5rem; padding: 0.8rem; background: rgba(201,169,110,0.1); border: 1px solid var(--border); }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    nav { padding: 1.5rem 2rem; }
+    nav.scrolled { padding: 1rem 2rem; }
+    section { padding: 5rem 2rem; }
+    .hero-content { padding: 0 2rem; }
+    .floating-shoe, .hero-badge { display: none; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+    .order-steps { grid-template-columns: repeat(2, 1fr); }
+    .order-step::after { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-scroll { display: none; }
+    #cart-sidebar { width: 100%; right: -100%; }
+    .story-grid { grid-template-columns: 1fr; }
+    .order-form-grid { grid-template-columns: 1fr; }
+    .market-segments { grid-template-columns: 1fr; }
+    .pricing-tiers { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .collection-header { flex-direction: column; align-items: flex-start; }
+    .product-grid { grid-template-columns: 1fr; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    #delivery { padding: 2rem; }
+    .delivery-inner { flex-direction: column; }
+    .hero-title { font-size: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .pricing-header { flex-direction: column; }
+    .order-steps { grid-template-columns: 1fr; }
+    .story-stats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
-  <nav class="nav" aria-label="Main navigation">
-    <a href="index.html" class="nav-logo">Sabbir&nbsp;Shikder</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="overlay" class="overlay" onclick="closeCart()"></div>
+<div id="toast">Added to cart ✓</div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <p class="eyebrow reveal">Personal Journal</p>
-        <h1 class="reveal d1">
-          Moments,<br><em>captured</em> &amp; kept.
-        </h1>
-        <p class="hero-lead reveal d2">
-          Hello, I'm <strong>Sabbir Shikder</strong> — from Manikganj, living in Dhaka.
-          This is my corner of the web: a quiet, simple place to share photographs and
-          the small stories behind them.
-        </p>
-        <div class="hero-cta reveal d3">
-          <a href="gallery.html" class="btn"><span>View the gallery</span></a>
-          <a href="about.html" class="btn btn-accent"><span>About me</span></a>
-        </div>
-      </div>
-    </div>
-    <span class="hero-scroll" aria-hidden="true">Scroll</span>
-  </header>
-
-  <hr class="rule" />
-
-  <!-- RECENT MOMENTS -->
-  <section id="recent" aria-label="Recent moments">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow reveal">Recent</p>
-          <h2 class="reveal d1">Latest moments</h2>
-        </div>
-        <p class="reveal d2">
-          A few of the most recent additions. The full collection lives in the gallery.
-        </p>
-      </div>
-
-      <!-- Photos render here automatically from posts.js -->
-      <div class="gallery" id="recent-gallery" data-limit="3"></div>
-
-      <div style="text-align:center; margin-top: clamp(2.5rem,5vw,4rem);" class="reveal">
-        <a href="gallery.html" class="btn"><span>See all photos &rarr;</span></a>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule" />
-
-  <!-- ABOUT TEASER -->
-  <section aria-label="About">
-    <div class="container">
-      <div class="teaser">
-        <div class="teaser-portrait reveal">
-          <!-- Replace with your portrait: assets/images/portrait.jpg -->
-          <img src="assets/images/portrait.jpg" alt="Portrait of Sabbir Shikder"
-               onerror="this.parentElement.classList.add('is-placeholder'); this.remove();" />
-        </div>
-        <div class="teaser-body">
-          <p class="eyebrow reveal">A little about me</p>
-          <h2 class="reveal d1">Keeping the<br>good moments close.</h2>
-          <p class="reveal d2">
-            I'm Sabbir Shikder — from Manikganj, now living in Dhaka. I built this page
-            to slow down and hold on to the moments that matter: travels, people,
-            everyday light. No noise, no clutter. Just photos and a few honest words.
-          </p>
-          <a href="about.html" class="btn reveal d3"><span>Read more</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" aria-label="Get in touch">
-    <div class="container">
-      <p class="eyebrow reveal" style="justify-content:center;">Say hello</p>
-      <h2 class="reveal d1">Let's connect.</h2>
-      <p class="reveal d2">
-        Find me on Facebook, or drop a message. I'd love to hear from you.
-      </p>
-      <div class="socials reveal d3">
-        <a href="https://www.facebook.com/sabbir.shikder2" target="_blank" rel="noopener">Facebook</a>
-        <a href="mailto:hello@example.com">Email</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <span class="footer-logo">Sabbir Shikder</span>
-        <nav class="footer-links" aria-label="Footer">
-          <a href="index.html">Home</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="about.html">About</a>
-          <a href="https://www.facebook.com/sabbir.shikder2" target="_blank" rel="noopener">Facebook</a>
-        </nav>
-        <p class="footer-copy">&copy; <span id="year"></span> Sabbir Shikder</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- LIGHTBOX (shared) -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo viewer">
-    <button class="lb-close" aria-label="Close">&times;</button>
-    <button class="lb-nav lb-prev" aria-label="Previous photo">&#8249;</button>
-    <button class="lb-nav lb-next" aria-label="Next photo">&#8250;</button>
-    <figure class="lightbox-figure">
-      <img id="lb-img" src="" alt="" />
-      <figcaption class="lightbox-cap">
-        <div class="c" id="lb-caption"></div>
-        <div class="m" id="lb-meta"></div>
-      </figcaption>
-    </figure>
+<!-- SUCCESS MODAL -->
+<div id="success-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('success-modal').classList.remove('show')">×</button>
+    <div class="modal-check">✦</div>
+    <h2 class="modal-title">Order Placed!</h2>
+    <p class="modal-sub">Thank you for choosing SOLÈME. Your order has been received. We'll confirm via WhatsApp & email within 2 hours.</p>
+    <div class="modal-order-id" id="modal-order-id">ORDER #SOL-000000</div>
+    <button class="btn-primary" style="margin-top:2rem;width:100%" onclick="document.getElementById('success-modal').classList.remove('show')">Continue Shopping</button>
   </div>
+</div>
 
-  <script src="posts.js"></script>
-  <script src="script.js"></script>
+<!-- CART SIDEBAR -->
+<div id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty"><p>Your cart is empty</p><br><span style="font-size:0.8rem;color:var(--grey)">Explore our collection to begin.</span></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cart-total-price">৳ 0</strong>
+    </div>
+    <button class="checkout-btn" onclick="scrollToOrder()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">SOL<span>È</span>ME</a>
+  <ul class="nav-links">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#brand-story">Story</a></li>
+    <li><a href="#target-market">About</a></li>
+    <li><a href="#order-form">Order</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <button class="nav-cart" onclick="openCart()">
+    Cart <span class="cart-count" id="cart-count">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">SOLÈME</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Dhaka, Bangladesh · Est. 2024</div>
+    <h1 class="hero-title">
+      Walk With<br><em>Intention.</em>
+    </h1>
+    <p class="hero-sub">
+      Premium sneakers crafted for the streets of Dhaka. 
+      Where South Asian aesthetics meet global street culture — 
+      designed for those who move with purpose.
+    </p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn-primary">Explore Collection</a>
+      <a href="#brand-story" class="btn-secondary">Our Story</a>
+    </div>
+  </div>
+  <div class="floating-shoe">
+    <svg viewBox="0 0 420 300" width="420" height="300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Shoe silhouette SVG -->
+      <ellipse cx="210" cy="260" rx="160" ry="15" fill="rgba(201,169,110,0.08)"/>
+      <!-- Sole -->
+      <path d="M 50 220 Q 40 230 60 240 L 340 245 Q 370 245 375 230 Q 380 215 360 210 Z" fill="#1a1208" stroke="#c9a96e" stroke-width="0.8" opacity="0.9"/>
+      <!-- Upper shoe body -->
+      <path d="M 80 220 Q 70 180 90 150 Q 110 120 150 110 Q 190 100 230 108 Q 260 115 280 130 L 360 210 Z" fill="#141414" stroke="#c9a96e" stroke-width="0.8"/>
+      <!-- Toe box -->
+      <path d="M 80 220 Q 50 215 45 200 Q 42 188 55 182 Q 70 178 90 185 Z" fill="#0f0f0f" stroke="#c9a96e" stroke-width="0.6"/>
+      <!-- Laces area -->
+      <path d="M 130 165 L 240 155 L 250 175 L 135 185 Z" fill="#1e1e1e" stroke="rgba(201,169,110,0.4)" stroke-width="0.5"/>
+      <!-- Lace lines -->
+      <line x1="145" y1="165" x2="140" y2="185" stroke="#c9a96e" stroke-width="1" opacity="0.6"/>
+      <line x1="165" y1="163" x2="160" y2="183" stroke="#c9a96e" stroke-width="1" opacity="0.6"/>
+      <line x1="185" y1="161" x2="180" y2="181" stroke="#c9a96e" stroke-width="1" opacity="0.6"/>
+      <line x1="205" y1="159" x2="200" y2="179" stroke="#c9a96e" stroke-width="1" opacity="0.6"/>
+      <line x1="225" y1="157" x2="220" y2="177" stroke="#c9a96e" stroke-width="1" opacity="0.6"/>
+      <!-- Gold accent stripe -->
+      <path d="M 280 130 Q 320 155 360 210 Q 345 205 310 185 Q 280 165 265 145 Z" fill="rgba(201,169,110,0.25)" stroke="#c9a96e" stroke-width="0.5"/>
+      <!-- Logo mark on shoe -->
+      <text x="200" y="200" font-family="Cormorant Garamond, serif" font-size="14" fill="rgba(201,169,110,0.5)" text-anchor="middle" letter-spacing="3">SOLÈME</text>
+      <!-- Glow under shoe -->
+      <ellipse cx="210" cy="255" rx="130" ry="8" fill="rgba(201,169,110,0.05)" filter="url(#glow)"/>
+    </svg>
+  </div>
+  <div class="hero-badge">
+    <div class="hero-badge-inner serif" style="font-size:0.55rem;letter-spacing:0.2em;color:var(--gold);text-align:center;line-height:1.6">
+      NEW<br>DROP<br>2025
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL TO EXPLORE</div>
+</section>
+
+<!-- DELIVERY BANNER -->
+<div id="delivery">
+  <div class="delivery-inner">
+    <div class="delivery-item">
+      <span class="delivery-icon">🚚</span>
+      <div class="delivery-text">
+        <strong>Free Delivery</strong>
+        <span>Dhaka Metro · Orders above ৳3,000</span>
+      </div>
+    </div>
+    <div class="delivery-item">
+      <span class="delivery-icon">📦</span>
+      <div class="delivery-text">
+        <strong>Nationwide Shipping</strong>
+        <span>Sylhet · Chittagong · Rajshahi · All districts</span>
+      </div>
+    </div>
+    <div class="delivery-item">
+      <span class="delivery-icon">↩️</span>
+      <div class="delivery-text">
+        <strong>7-Day Easy Returns</strong>
+        <span>Hassle-free exchange policy</span>
+      </div>
+    </div>
+    <div class="delivery-item">
+      <span class="delivery-icon">💬</span>
+      <div class="delivery-text">
+        <strong>WhatsApp Support</strong>
+        <span>01XXXXXXXXX · 9AM–9PM daily</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRAND STORY -->
+<section id="brand-story">
+  <div class="story-grid">
+    <div>
+      <div class="section-label">Our Story</div>
+      <h2 class="story-title">Born from the<br><em>streets of Dhaka</em></h2>
+      <div class="story-text">
+        <p>SOLÈME was born at the intersection of ambition and identity. In a city where streets pulse with a unique energy — where rickshaws share lanes with startups, and tradition walks beside transformation — we saw a gap.</p>
+        <p>International sneaker brands didn't speak to us. We needed something that understood our heat, our streets, our pride. SOLÈME is the answer: premium footwear built for South Asian lives, priced for South Asian realities.</p>
+        <p>Every pair carries the essence of <em>sole</em> — the foundation, the earth, the ground you stand on. And the accent on the È? That's our nod to the world. We're local, but we're global.</p>
+      </div>
+      <div class="story-stats">
+        <div>
+          <div class="stat-num">08+</div>
+          <div class="stat-label">Silhouettes</div>
+        </div>
+        <div>
+          <div class="stat-num">৳1.5K</div>
+          <div class="stat-label">Starts From</div>
+        </div>
+        <div>
+          <div class="stat-num">48h</div>
+          <div class="stat-label">Dhaka Delivery</div>
+        </div>
+        <div>
+          <div class="stat-num">BD</div>
+          <div class="stat-label">Made For You</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-visual">
+      <!-- Geometric logo representation -->
+      <svg viewBox="0 0 300 300" width="260" height="260" xmlns="http://www.w3.org/2000/svg">
+        <!-- Logo mark: abstract S formed from geometry -->
+        <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="90" fill="none" stroke="rgba(201,169,110,0.08)" stroke-width="1"/>
+        <!-- Stylized S mark -->
+        <path d="M 175 95 Q 125 95 120 120 Q 115 145 150 150 Q 185 155 180 180 Q 175 205 125 205"
+              fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Corner marks -->
+        <line x1="60" y1="60" x2="80" y2="60" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="60" y1="60" x2="60" y2="80" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="240" y1="60" x2="220" y2="60" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="240" y1="60" x2="240" y2="80" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="60" y1="240" x2="80" y2="240" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="60" y1="240" x2="60" y2="220" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="240" y1="240" x2="220" y2="240" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <line x1="240" y1="240" x2="240" y2="220" stroke="rgba(201,169,110,0.4)" stroke-width="1"/>
+        <!-- Brand name -->
+        <text x="150" y="275" font-family="Cormorant Garamond, serif" font-size="13" fill="rgba(201,169,110,0.6)" text-anchor="middle" letter-spacing="8">SOLÈME</text>
+        <text x="150" y="290" font-family="Space Mono, monospace" font-size="7" fill="rgba(201,169,110,0.3)" text-anchor="middle" letter-spacing="4">DHAKA · BANGLADESH</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="collection-header">
+    <div>
+      <div class="section-label">Our Collection</div>
+      <h2 class="collection-title">Season 01 Drops</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts(this,'all')">All</button>
+      <button class="filter-tab" onclick="filterProducts(this,'low')">Under ৳3K</button>
+      <button class="filter-tab" onclick="filterProducts(this,'mid')">৳3K–৳5K</button>
+      <button class="filter-tab" onclick="filterProducts(this,'high')">৳5K+</button>
+    </div>
+  </div>
+  <div class="product-grid" id="product-grid"></div>
+</section>
+
+<!-- BRAND PILLARS -->
+<section id="brand-pillars">
+  <div class="section-label">Brand Positioning</div>
+  <h2 class="pillars-title">What makes<br>SOLÈME <em>different</em></h2>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon">◈</div>
+      <h3>Premium Without the Premium Tax</h3>
+      <p>Global sneaker brands charge 3–5× for import duties and brand markup. We eliminate the chain and pass the value to you. Quality leather, EVA soles, breathable mesh — priced honestly.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon">◉</div>
+      <h3>Designed for Our Climate</h3>
+      <p>Dhaka's heat, humidity, and monsoon rains demand footwear engineered for them. SOLÈME soles feature anti-slip rubber compounds tested on our streets, not European sidewalks.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon">◈</div>
+      <h3>Size-Inclusive for South Asia</h3>
+      <p>Western brands often exclude sizes 35–46 that fit most Bangladeshi feet. Every SOLÈME silhouette comes in full-range sizing. Half-sizes available on select models.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div class="pillar-icon">◉</div>
+      <h3>Local Culture, Global Aesthetics</h3>
+      <p>Our colorways draw from rickshaw art, jamdani weaving, and terracotta pottery. Street-ready silhouettes with design DNA rooted in Bangladesh — visible to those who know, subtle to those who don't.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET MARKET -->
+<section id="target-market">
+  <div class="market-intro">
+    <div class="section-label">Target Market</div>
+    <h2>Who Wears<br>SOLÈME?</h2>
+    <p style="color:var(--grey);line-height:1.8;margin-top:1rem">Bangladesh's young urban class is coming of age — educated, connected, and unwilling to compromise. They've grown up watching global streetwear culture online. Now they want it accessible, on their terms.</p>
+  </div>
+  <div class="market-segments">
+    <div class="segment">
+      <div class="seg-age">18–28</div>
+      <div class="seg-label">Primary / Core</div>
+      <h3 class="seg-title">The Urban Youth</h3>
+      <p class="seg-desc">University students and young professionals in Dhaka, Chittagong, Sylhet. Instagram-native, trend-aware, budget-conscious but style-driven. They follow Sneaker News but buy from Bashundhara City.</p>
+      <div class="seg-tags">
+        <span class="seg-tag">Students</span>
+        <span class="seg-tag">Entry-Level Professionals</span>
+        <span class="seg-tag">Social Media Native</span>
+        <span class="seg-tag">Budget: ৳2,000–৳4,000</span>
+      </div>
+    </div>
+    <div class="segment">
+      <div class="seg-age">25–38</div>
+      <div class="seg-label">Secondary / Growth</div>
+      <h3 class="seg-title">The Established Creative</h3>
+      <p class="seg-desc">Entrepreneurs, designers, marketers, and tech professionals. They have disposable income and want to express identity through style. They value quality over quantity and understand brand story.</p>
+      <div class="seg-tags">
+        <span class="seg-tag">Entrepreneurs</span>
+        <span class="seg-tag">Creatives</span>
+        <span class="seg-tag">Tech Professionals</span>
+        <span class="seg-tag">Budget: ৳4,000–৳8,000</span>
+      </div>
+    </div>
+    <div class="segment">
+      <div class="seg-age">15–22</div>
+      <div class="seg-label">Future / Gen Z</div>
+      <h3 class="seg-title">The Next Wave</h3>
+      <p class="seg-desc">SSC/HSC students with influencer-shaped taste. They follow Bangladeshi YouTubers, attend concerts, and express identity through what they wear. Parents often fund the purchase.</p>
+      <div class="seg-tags">
+        <span class="seg-tag">Gifted Purchases</span>
+        <span class="seg-tag">Hype-Driven</span>
+        <span class="seg-tag">School/College Students</span>
+        <span class="seg-tag">Budget: ৳1,500–৳3,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-header">
+    <div>
+      <div class="section-label">Pricing</div>
+      <h2 class="pricing-title">Transparent<br>Pricing in BDT</h2>
+    </div>
+    <div class="bd-note">
+      <p><strong>Bangladesh Market:</strong> All prices include VAT & duties. We accept bKash, Nagad, Rocket, and Cash on Delivery across all 64 districts.</p>
+    </div>
+  </div>
+  <div class="pricing-tiers">
+    <div class="price-tier">
+      <div class="tier-name">Entry</div>
+      <div class="tier-price">৳1,499–২,999</div>
+      <div class="tier-price-sub">Canvas & Mesh Sneakers</div>
+      <ul class="tier-features">
+        <li>Vulcanized canvas upper</li>
+        <li>EVA foam midsole</li>
+        <li>Rubber outsole</li>
+        <li>Basic colourways</li>
+        <li>Sizes 36–44</li>
+        <li class="no">Premium leather</li>
+        <li class="no">Limited editions</li>
+      </ul>
+    </div>
+    <div class="price-tier featured">
+      <div class="tier-name">Core</div>
+      <div class="tier-price">৳3,499–৫,499</div>
+      <div class="tier-price-sub">Leather & Technical Sneakers</div>
+      <ul class="tier-features">
+        <li>Genuine leather upper</li>
+        <li>Chunky EVA midsole</li>
+        <li>Anti-slip rubber sole</li>
+        <li>Seasonal colourways</li>
+        <li>Sizes 35–46</li>
+        <li>Padded collar & tongue</li>
+        <li class="no">Limited editions</li>
+      </ul>
+    </div>
+    <div class="price-tier">
+      <div class="tier-name">Premium</div>
+      <div class="tier-price">৳5,999–৯,999</div>
+      <div class="tier-price-sub">Limited & Signature Series</div>
+      <ul class="tier-features">
+        <li>Full-grain leather</li>
+        <li>Ergonomic footbed</li>
+        <li>Vibram-grade outsole</li>
+        <li>Limited release colourways</li>
+        <li>Sizes 35–47</li>
+        <li>Premium packaging</li>
+        <li>Serialised authenticity card</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO ORDER -->
+<section id="how-to-order">
+  <div class="section-label">Ordering</div>
+  <h2 style="font-size:clamp(2rem,3.5vw,3rem);margin-bottom:0.5rem">How To Order</h2>
+  <p style="color:var(--grey);max-width:500px">Simple, fast, and secure. Pick your silhouette, choose your size, and we'll bring SOLÈME to your door.</p>
+  <div class="order-steps">
+    <div class="order-step">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Browse & Select</h3>
+      <p class="step-desc">Explore our collection above. Choose your model, colorway, and add to cart.</p>
+    </div>
+    <div class="order-step">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Choose Your Size</h3>
+      <p class="step-desc">Use our size guide to find your perfect fit. EU sizing across all models — standard Bangladeshi fit.</p>
+    </div>
+    <div class="order-step">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Fill Order Form</h3>
+      <p class="step-desc">Enter your name, address, and mobile number. Choose from bKash, Nagad, Rocket, or COD.</p>
+    </div>
+    <div class="order-step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Receive & Enjoy</h3>
+      <p class="step-desc">Dhaka Metro delivery in 24–48 hours. Nationwide in 3–5 business days via Pathao, Redx, or Sundarban.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section id="order-form">
+  <div class="order-form-grid">
+    <div>
+      <div class="section-label">Place Order</div>
+      <h2 class="form-title">Complete<br>Your Order</h2>
+      <p class="form-subtitle">Fill in your details below. All orders are confirmed via WhatsApp within 2 hours. COD available everywhere in Bangladesh.</p>
+      <div id="cart-order-summary" class="order-summary">
+        <h4>Order Summary</h4>
+        <div id="order-items-list"><p style="color:var(--grey);font-size:0.85rem">No items in cart. Browse the collection above.</p></div>
+      </div>
+      <div style="background:#141414;border:1px solid var(--border);padding:1.5rem;margin-bottom:2rem">
+        <p style="font-family:Space Mono,monospace;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.8rem">PAYMENT METHODS</p>
+        <p style="font-size:0.8rem;color:var(--grey);line-height:1.7">💚 bKash · 🔵 Nagad · 🔴 Rocket · 💵 Cash on Delivery<br>Advance payment required for orders above ৳5,000</p>
+      </div>
+    </div>
+    <div>
+      <form id="orderFormEl" onsubmit="submitOrder(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="f-name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="f-phone" placeholder="01XXXXXXXXX" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="f-email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Delivery Address *</label>
+          <textarea id="f-address" placeholder="House/Apt, Road, Area, Thana..." required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City / Zila *</label>
+            <select id="f-city" required>
+              <option value="">Select district</option>
+              <option>Dhaka</option><option>Chittagong</option><option>Sylhet</option>
+              <option>Rajshahi</option><option>Khulna</option><option>Barishal</option>
+              <option>Rangpur</option><option>Mymensingh</option><option>Comilla</option>
+              <option>Narayanganj</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Postal Code</label>
+            <input type="text" id="f-postal" placeholder="1215">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Payment Method *</label>
+          <div class="payment-methods">
+            <button type="button" class="payment-btn active" onclick="selectPayment(this,'bKash')">💚 bKash</button>
+            <button type="button" class="payment-btn" onclick="selectPayment(this,'Nagad')">🔵 Nagad</button>
+            <button type="button" class="payment-btn" onclick="selectPayment(this,'Rocket')">🔴 Rocket</button>
+            <button type="button" class="payment-btn" onclick="selectPayment(this,'COD')">💵 COD</button>
+            <button type="button" class="payment-btn" onclick="selectPayment(this,'Card')">💳 Card</button>
+            <button type="button" class="payment-btn" onclick="selectPayment(this,'Upay')">⚡ Upay</button>
+          </div>
+          <input type="hidden" id="f-payment" value="bKash">
+        </div>
+        <div class="form-group">
+          <label>Order Notes (Optional)</label>
+          <textarea id="f-notes" placeholder="Size exchange requests, colour preferences, gift messages..."></textarea>
+        </div>
+        <div style="background:#141414;border:1px solid var(--border);padding:1.2rem;margin-bottom:1rem;font-size:0.8rem;color:var(--grey);line-height:1.6">
+          🛡️ Your information is secure and only used for order fulfillment. We never share your data.
+        </div>
+        <button type="submit" class="submit-btn">Place Order →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">Reviews</div>
+  <h2 style="font-size:clamp(2rem,3.5vw,3rem);margin-bottom:0.5rem">What Our<br>Customers Say</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Finally a Bangladeshi sneaker brand that doesn't feel like a compromise. The NOIR LOW in leather is stunning — I've had Nike people ask where I got them from.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">RA</div>
+        <div>
+          <div class="author-name">Rafiul Alam</div>
+          <div class="author-loc">Dhaka, Gulshan</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">bKash payment, delivery in 36 hours to Chittagong — what more can I ask? The sizing is true-to-life unlike international brands where I always have to size up.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">FH</div>
+        <div>
+          <div class="author-name">Farhana Hossain</div>
+          <div class="author-loc">Chittagong, Nasirabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★☆</div>
+      <p class="testimonial-text">Got the TERRA MID for my university campus life. The rubber sole actually holds up in monsoon — I've been wearing them through puddles. Genuinely impressed by the build quality at this price.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SK</div>
+        <div>
+          <div class="author-name">Sabrina Khan</div>
+          <div class="author-loc">Sylhet, Zindabazar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>SOLÈME</h3>
+      <p>Premium sneakers born in Dhaka, built for Bangladesh. Walk with intention, wear with pride.</p>
+      <div class="social-links" style="margin-top:2rem">
+        <a href="#">FB</a>
+        <a href="#">IG</a>
+        <a href="#">TT</a>
+        <a href="#">WA</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collection</h4>
+      <ul>
+        <li><a href="#">NOIR Series</a></li>
+        <li><a href="#">TERRA Series</a></li>
+        <li><a href="#">DHAKA Canvas</a></li>
+        <li><a href="#">Limited Drops</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns & Exchange</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">WhatsApp Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Stockists</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SOLÈME Bangladesh. All rights reserved.</span>
+    <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.1em">WALK WITH INTENTION ✦</span>
+    <span>Privacy · Terms · VAT Registered</span>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button,.product-card,.filter-tab').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cursor.style.width='20px';cursor.style.height='20px';cursor.style.background='rgba(201,169,110,0.3)';ring.style.width='60px';ring.style.height='60px'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.width='10px';cursor.style.height='10px';cursor.style.background='var(--gold)';ring.style.width='36px';ring.style.height='36px'; });
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80); });
+
+// Products data
+const products = [
+  {
+    id:1, name:"NOIR LOW", series:"Canvas Series", price:2499, priceRange:"low",
+    badge:"NEW", desc:"Clean low-top canvas sneaker with gold lace hardware",
+    colors:["#1a1a1a","#f7f5f0","#2c1a0e"],
+    sizes:[38,39,40,41,42,43,44],
+    color:"#1a1a1a",
+    svgFill:"#222",svgAccent:"#c9a96e"
+  },
+  {
+    id:2, name:"TERRA MID", series:"Technical Series", price:4299, priceRange:"mid",
+    badge:"BESTSELLER", desc:"Mid-top genuine leather with monsoon-grade rubber sole",
+    colors:["#3d2b1a","#1a1a2e","#1a3d2b"],
+    sizes:[38,39,40,41,42,43,44,45],
+    color:"#3d2b1a",
+    svgFill:"#4a3524",svgAccent:"#c9a96e"
+  },
+  {
+    id:3, name:"DHAKA LOW", series:"Signature Series", price:6499, priceRange:"high",
+    badge:"LIMITED", desc:"Full-grain leather with rickshaw-art emboss detailing",
+    colors:["#1a1a1a","#8b1a1a","#1a2a4a"],
+    sizes:[39,40,41,42,43,44],
+    color:"#1a1a1a",
+    svgFill:"#1e1e1e",svgAccent:"#c9a96e"
+  },
+  {
+    id:4, name:"CREAM RUNNER", series:"Canvas Series", price:1999, priceRange:"low",
+    badge:"SALE", desc:"Lightweight canvas runner, perfect for daily wear",
+    colors:["#ede9e1","#1a1a1a","#c9a96e"],
+    sizes:[36,37,38,39,40,41,42,43],
+    color:"#ede9e1",
+    svgFill:"#e8e4dc",svgAccent:"#9e7a45"
+  },
+  {
+    id:5, name:"SHADOW HIGH", series:"Technical Series", price:5299, priceRange:"mid",
+    badge:"NEW", desc:"High-top suede with cushioned ankle collar",
+    colors:["#2a2a2a","#1a2040","#3d1a1a"],
+    sizes:[39,40,41,42,43,44,45],
+    color:"#2a2a2a",
+    svgFill:"#333",svgAccent:"#c9a96e"
+  },
+  {
+    id:6, name:"GOLD COURT", series:"Signature Series", price:7999, priceRange:"high",
+    badge:"PREMIUM", desc:"Heritage tennis silhouette in full-grain with 24K gold foxing",
+    colors:["#f7f5f0","#1a1a1a","#c9a96e"],
+    sizes:[38,39,40,41,42,43,44],
+    color:"#f7f5f0",
+    svgFill:"#f0ece4",svgAccent:"#c9a96e"
+  }
+];
+
+let cart = [];
+let selectedSizes = {};
+
+function getShoeColor(p){
+  return `
+  <svg viewBox="0 0 240 160" width="200" height="140" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="150" rx="100" ry="8" fill="rgba(0,0,0,0.3)"/>
+    <path d="M40 130 Q32 140 50 145 L200 148 Q225 148 228 135 Q231 122 218 118 Z" fill="${darken(p.svgFill)}" stroke="${p.svgAccent}" stroke-width="0.8"/>
+    <path d="M55 130 Q48 100 65 78 Q82 56 115 50 Q145 44 165 58 L218 118 Z" fill="${p.svgFill}" stroke="${p.svgAccent}" stroke-width="0.8"/>
+    <path d="M55 130 Q30 125 28 112 Q26 100 38 96 Q52 93 62 100 Z" fill="${darken(p.svgFill)}" stroke="${p.svgAccent}" stroke-width="0.6"/>
+    <path d="M85 100 L160 92 L168 108 L88 117 Z" fill="${darken(p.svgFill)}" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+    <line x1="95" y1="100" x2="92" y2="117" stroke="${p.svgAccent}" stroke-width="1" opacity="0.7"/>
+    <line x1="112" y1="98" x2="108" y2="115" stroke="${p.svgAccent}" stroke-width="1" opacity="0.7"/>
+    <line x1="129" y1="96" x2="125" y2="113" stroke="${p.svgAccent}" stroke-width="1" opacity="0.7"/>
+    <line x1="146" y1="94" x2="142" y2="111" stroke="${p.svgAccent}" stroke-width="1" opacity="0.7"/>
+    <path d="M165 58 Q190 80 218 118 Q205 112 188 100 Q170 88 158 72 Z" fill="rgba(201,169,110,0.2)" stroke="${p.svgAccent}" stroke-width="0.5"/>
+    <text x="135" y="120" font-family="Cormorant Garamond, serif" font-size="8" fill="rgba(201,169,110,0.5)" text-anchor="middle" letter-spacing="2">SOLÈME</text>
+  </svg>`;
+}
+
+function darken(hex){
+  if(hex.startsWith('#')){
+    let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return `rgb(${Math.max(0,r-20)},${Math.max(0,g-20)},${Math.max(0,b-20)})`;
+  }
+  return hex;
+}
+
+function renderProducts(filter='all'){
+  const grid = document.getElementById('product-grid');
+  const filtered = filter==='all' ? products : products.filter(p=>p.priceRange===filter);
+  grid.innerHTML = filtered.map(p=>`
+    <div class="product-card" data-id="${p.id}">
+      <div class="product-img-wrap" style="background:${p.color==='#f7f5f0'||p.color==='#ede9e1'?'#e8e4dc':'#1a1a1a'}">
+        ${getShoeColor(p)}
+        <div class="product-badge">${p.badge}</div>
+        <div class="product-hover">
+          <button class="btn-primary" onclick="quickAddToCart(${p.id},event)">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div style="font-size:0.7rem;color:var(--grey);font-family:'Space Mono',monospace;letter-spacing:0.1em;margin-top:0.2rem">${p.series}</div>
+        <div style="font-size:0.8rem;color:var(--grey);margin-top:0.6rem">${p.desc}</div>
+        <div class="product-meta">
+          <div class="product-price"><span class="taka">৳ </span>${p.price.toLocaleString('en-BD')}</div>
+        </div>
+        <div style="margin-top:0.8rem">
+          <div style="font-size:0.65rem;color:var(--grey);font-family:'Space Mono',monospace;letter-spacing:0.1em;margin-bottom:0.5rem">SIZE (EU)</div>
+          <div class="product-sizes">
+            ${p.sizes.map(s=>`<span class="size-chip" onclick="selectSize(this,${p.id},${s})">${s}</span>`).join('')}
+          </div>
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart — ৳${p.price.toLocaleString('en-BD')}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(el, filter){
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts(filter);
+}
+
+function selectSize(el,productId,size){
+  const card = el.closest('.product-card');
+  card.querySelectorAll('.size-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedSizes[productId]=size;
+}
+
+function quickAddToCart(id,e){
+  e.stopPropagation();
+  addToCart(id);
+}
+
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const size = selectedSizes[id];
+  if(!size){ showToast('Please select a size!'); return; }
+  const existing = cart.find(x=>x.id===id&&x.size===size);
+  if(existing){ existing.qty++; }
+  else { cart.push({...p,size,qty:1}); }
+  updateCart();
+  showToast('Added to cart ✓');
+}
+
+function updateCart(){
+  const count = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  const total = cart.reduce((s,x)=>s+(x.price*x.qty),0);
+  document.getElementById('cart-total-price').textContent='৳ '+total.toLocaleString('en-BD');
+  const list = document.getElementById('cart-items-list');
+  if(cart.length===0){
+    list.innerHTML='<div class="cart-empty"><p>Your cart is empty</p><br><span style="font-size:0.8rem;color:var(--grey)">Explore our collection above.</span></div>';
+  } else {
+    list.innerHTML=cart.map(item=>`
+      <div class="cart-item">
+        <div class="cart-item-img">${getShoeColor(item)}</div>
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-size">EU ${item.size} · ${item.series}</div>
+          <div class="cart-item-price">৳ ${item.price.toLocaleString('en-BD')}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id},${item.size},-1)">−</button>
+            <span style="font-size:0.85rem;min-width:20px;text-align:center">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id},${item.size},1)">+</button>
+            <button class="qty-btn" onclick="removeItem(${item.id},${item.size})" style="margin-left:0.5rem;font-size:0.7rem">✕</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  // Update order summary
+  const orderList = document.getElementById('order-items-list');
+  if(cart.length===0){
+    orderList.innerHTML='<p style="color:var(--grey);font-size:0.85rem">No items in cart. Browse the collection above.</p>';
+  } else {
+    const rows = cart.map(x=>`<div class="order-item"><span>${x.name} (EU ${x.size}) ×${x.qty}</span><span>৳ ${(x.price*x.qty).toLocaleString('en-BD')}</span></div>`).join('');
+    const delivery = total>3000?0:100;
+    orderList.innerHTML = rows +
+      `<div class="order-item"><span>Delivery</span><span>${delivery===0?'FREE':'৳ '+delivery}</span></div>`+
+      `<div class="order-item"><span>Total</span><span>৳ ${(total+delivery).toLocaleString('en-BD')}</span></div>`;
+  }
+}
+
+function changeQty(id,size,delta){
+  const item = cart.find(x=>x.id===id&&x.size===size);
+  if(item){ item.qty+=delta; if(item.qty<=0) cart=cart.filter(x=>!(x.id===id&&x.size===size)); }
+  updateCart();
+}
+function removeItem(id,size){ cart=cart.filter(x=>!(x.id===id&&x.size===size)); updateCart(); }
+function openCart(){ document.getElementById('cart-sidebar').classList.add('open'); document.getElementById('overlay').classList.add('show'); }
+function closeCart(){ document.getElementById('cart-sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function selectPayment(el,method){
+  document.querySelectorAll('.payment-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('f-payment').value=method;
+}
+
+function scrollToOrder(){ closeCart(); setTimeout(()=>document.getElementById('order-form').scrollIntoView({behavior:'smooth'}),400); }
+
+function submitOrder(e){
+  e.preventDefault();
+  if(cart.length===0){ showToast('Please add items to cart first!'); return; }
+  const name=document.getElementById('f-name').value;
+  const phone=document.getElementById('f-phone').value;
+  const city=document.getElementById('f-city').value;
+  const payment=document.getElementById('f-payment').value;
+  if(!name||!phone||!city){ showToast('Please fill all required fields'); return; }
+  const orderId = 'SOL-'+Math.floor(100000+Math.random()*900000);
+  document.getElementById('modal-order-id').textContent='ORDER #'+orderId+' · '+payment+' · '+city;
+  document.getElementById('success-modal').classList.add('show');
+  // Reset
+  cart=[];
+  selectedSizes={};
+  updateCart();
+  document.getElementById('orderFormEl').reset();
+  document.querySelectorAll('.payment-btn').forEach((b,i)=>{ b.classList.toggle('active',i===0); });
+  document.getElementById('f-payment').value='bKash';
+}
+
+// Init
+renderProducts();
+updateCart();
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+},{threshold:0.1});
+document.querySelectorAll('.pillar,.segment,.testimonial,.order-step,.price-tier').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
