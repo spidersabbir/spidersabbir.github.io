@@ -3,510 +3,991 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOLÈME · Admin Control System</title>
+<title>SOLÈME — The Sole Speaks | Premium Sneakers Born in Dhaka</title>
+<link rel="icon" type="image/jpeg" href="assets/soleme-mark.jpg">
+<meta name="description" content="SOLÈME — premium sneakers built for the streets of Bangladesh. Anti-slip monsoon-tested soles, breathable uppers, true South Asian sizing. bKash, Nagad & COD accepted. Free Dhaka delivery over ৳3,000.">
+<meta name="keywords" content="sneakers Bangladesh, premium shoes Dhaka, SOLEME, sneaker brand BD, bKash sneakers, COD shoes">
+<meta property="og:title" content="SOLÈME — The Sole Speaks">
+<meta property="og:description" content="Premium sneakers built for the streets of Bangladesh.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
 <style>
+/* ============ SOLEME DESIGN SYSTEM ============ */
 :root{
-  --ink:#0b0b0c;--ink-2:#141416;--ink-3:#1c1c20;--line:#2a2a30;--line-2:#34343c;
-  --bone:#f4f1ea;--bone-dim:#b8b4ab;--muted:#8a867d;
-  --accent:#e7c873;--accent-2:#c9a84a;--green:#1fa463;--blue:#5b8def;--purple:#8b7cf6;--red:#e0533d;--orange:#e8923d;
-  --radius:14px;--display:'Bricolage Grotesque',system-ui,sans-serif;--sans:'Inter',system-ui,sans-serif;
+  --ink:#0b0b0c; --ink-2:#141416; --ink-3:#1c1c20; --line:#2a2a30;
+  --bone:#f4f1ea; --bone-dim:#b8b4ab; --muted:#8a867d;
+  --accent:#e7c873; --accent-2:#c9a84a; --green:#1fa463; --bkash:#e2136e; --red:#e0533d;
+  --radius:14px; --radius-lg:22px; --maxw:1240px;
+  --shadow:0 20px 60px -20px rgba(0,0,0,.6);
+  --serif:'Playfair Display',Georgia,serif;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--ink);color:var(--bone);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit}
-::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}::-webkit-scrollbar-track{background:var(--ink-2)}
-.layout{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
-/* SIDEBAR */
-.sidebar{background:var(--ink-2);border-right:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
-.sb-logo{font-family:var(--display);font-weight:800;font-size:22px;padding:22px 22px 18px;letter-spacing:.04em;border-bottom:1px solid var(--line)}
-.sb-logo b{color:var(--accent)}
-.sb-logo small{display:block;font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.2em;color:var(--muted);margin-top:3px}
-.sb-nav{padding:14px 12px;flex:1}
-.sb-group{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:14px 12px 7px}
-.sb-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--bone-dim);font-weight:500;font-size:13.5px;cursor:pointer;transition:.15s;margin-bottom:2px}
-.sb-item:hover{background:var(--ink-3);color:var(--bone)}
-.sb-item.active{background:var(--accent);color:var(--ink);font-weight:600}
-.sb-item .ic{font-size:17px;width:20px;text-align:center}
-.sb-item .badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 5px}
-.sb-item.active .badge{background:var(--ink);color:var(--accent)}
-.sb-foot{padding:14px;border-top:1px solid var(--line)}
-.sb-user{display:flex;align-items:center;gap:11px;padding:8px}
-.sb-ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--ink);display:grid;place-items:center;font-weight:700}
-.sb-user b{font-size:13px;display:block}.sb-user span{font-size:11px;color:var(--muted)}
-/* MAIN */
-.main{display:flex;flex-direction:column;min-width:0}
-.topbar{display:flex;align-items:center;gap:16px;padding:16px 28px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,11,12,.85);backdrop-filter:blur(12px);z-index:50}
-.topbar h1{font-family:var(--display);font-weight:800;font-size:22px}
-.search-mini{display:flex;align-items:center;gap:8px;background:var(--ink-2);border:1px solid var(--line);border-radius:100px;padding:8px 16px;width:300px;color:var(--muted)}
-.search-mini input{background:none;border:none;color:var(--bone);flex:1;font-size:13px}
-.search-mini input:focus{outline:none}
-.tb-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
-.tb-btn{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--ink-2);border:1px solid var(--line);position:relative;transition:.15s}
-.tb-btn:hover{border-color:var(--accent)}
-.tb-dot{position:absolute;top:9px;right:9px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--ink-2)}
-.content{padding:28px;flex:1}
-.view{display:none}.view.active{display:block;animation:fade .3s}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-/* CARDS */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
-.kpi{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden}
-.kpi .lab{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
-.kpi .val{font-family:var(--display);font-weight:800;font-size:30px;margin:8px 0 4px}
-.kpi .chg{font-size:12px;font-weight:600}
-.chg.up{color:var(--green)}.chg.down{color:var(--red)}
-.kpi .spark{position:absolute;right:0;bottom:0;width:90px;height:40px;opacity:.5}
-.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-bottom:18px}
-.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
-.card-head h3{font-family:var(--display);font-weight:700;font-size:18px}
-.card-head .sub{font-size:12px;color:var(--muted)}
-.grid-2{display:grid;grid-template-columns:1.6fr 1fr;gap:18px}
-.grid-2b{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-/* TABLE */
-table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:11px 12px;border-bottom:1px solid var(--line)}
-td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tbody tr{transition:.12s}tbody tr:hover{background:var(--ink-3)}
-.tprod{display:flex;align-items:center;gap:11px}
-.tprod .te{width:38px;height:38px;border-radius:9px;background:var(--ink-3);display:grid;place-items:center;font-size:20px;flex:0 0 auto}
-.tprod b{font-weight:600}.tprod span{font-size:11px;color:var(--muted);display:block}
-.pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.03em;display:inline-flex;align-items:center;gap:5px}
-.pill.green{background:rgba(31,164,99,.15);color:var(--green)}
-.pill.gold{background:rgba(231,200,115,.15);color:var(--accent)}
-.pill.blue{background:rgba(91,141,239,.15);color:var(--blue)}
-.pill.purple{background:rgba(139,124,246,.15);color:var(--purple)}
-.pill.red{background:rgba(224,83,61,.15);color:var(--red)}
-.pill.orange{background:rgba(232,146,61,.15);color:var(--orange)}
-.pill.gray{background:var(--ink-3);color:var(--bone-dim)}
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:13px;transition:.15s;white-space:nowrap}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.serif{font-family:var(--serif)}
+.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:600}
+section{position:relative}
+::selection{background:var(--accent);color:var(--ink)}
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--ink-2)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:100px;font-weight:600;font-size:14px;letter-spacing:.02em;transition:.25s;white-space:nowrap}
+.btn-primary{background:var(--bone);color:var(--ink)}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+.btn-dark{background:var(--ink-3);color:var(--bone);border:1px solid var(--line)}
+.btn-dark:hover{background:var(--ink-2);border-color:var(--accent)}
 .btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--ink)}
-.btn-gold:hover{transform:translateY(-1px)}
-.btn-dark{background:var(--ink-3);border:1px solid var(--line);color:var(--bone)}
-.btn-dark:hover{border-color:var(--accent)}
-.btn-sm{padding:7px 13px;font-size:12px}
-.btn-icon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:var(--ink-3);border:1px solid var(--line)}
-.btn-icon:hover{border-color:var(--accent)}
-/* CHARTS */
-.bars{display:flex;align-items:flex-end;gap:10px;height:200px;padding-top:10px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
-.bar-fill{width:100%;max-width:42px;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:6px 6px 0 0;transition:.4s;position:relative}
-.bar-fill:hover{filter:brightness(1.15)}
-.bar-fill.alt{background:linear-gradient(180deg,var(--blue),#3a6ed0)}
-.bar-lab{font-size:11px;color:var(--muted)}
-.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--bone-dim)}
-.legend .k{display:inline-flex;align-items:center;gap:7px}
-.dot{width:10px;height:10px;border-radius:3px}
-.donut-wrap{display:flex;align-items:center;gap:24px}
-.donut{width:160px;height:160px;border-radius:50%;flex:0 0 auto;position:relative}
-.donut::after{content:'';position:absolute;inset:32px;background:var(--ink-2);border-radius:50%}
-.donut-center{position:absolute;inset:0;display:grid;place-items:center;z-index:2;text-align:center}
-.donut-center b{font-family:var(--display);font-size:24px;display:block}
-.donut-center span{font-size:11px;color:var(--muted)}
-.progress{height:8px;background:var(--ink-3);border-radius:6px;overflow:hidden;margin-top:8px}
-.progress > div{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-.line-chart{height:220px;width:100%}
-/* FORMS / MODAL */
-.field{margin-bottom:14px}
-.field label{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px 13px;color:var(--bone);font-size:13.5px}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
-.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;opacity:0;visibility:hidden;transition:.25s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--accent-2)}
+.btn-ghost{border:1px solid var(--line);color:var(--bone)}
+.btn-ghost:hover{border-color:var(--bone)}
+.btn-block{width:100%;justify-content:center}
+.btn-sm{padding:9px 16px;font-size:12.5px}
+
+/* ============ TOP BAR / MARQUEE ============ */
+.topbar{background:var(--accent);color:var(--ink);font-size:12.5px;font-weight:600;overflow:hidden;white-space:nowrap}
+.topbar .track{display:inline-flex;gap:48px;padding:9px 0;animation:marq 28s linear infinite}
+.topbar .track span{display:inline-flex;align-items:center;gap:10px}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ HEADER ============ */
+header.nav{position:sticky;top:0;z-index:200;background:rgba(11,11,12,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:28px;height:70px}
+.logo{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.logo b{color:var(--accent)}
+.nav-links{display:flex;gap:26px;margin-left:14px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--bone-dim);transition:.2s;position:relative;padding:4px 0}
+.nav-links a:hover{color:var(--bone)}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--accent);transition:.25s}
+.nav-links a:hover::after{width:100%}
+.nav-actions{margin-left:auto;display:flex;align-items:center;gap:6px}
+.icon-btn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--bone);transition:.2s;position:relative}
+.icon-btn:hover{background:var(--ink-3)}
+.icon-btn svg{width:20px;height:20px}
+.badge-count{position:absolute;top:4px;right:4px;background:var(--accent);color:var(--ink);font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.hamburger{display:none}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:clamp(60px,9vw,120px) 0 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 80% 0%,rgba(231,200,115,.14),transparent 55%),radial-gradient(80% 70% at 0% 100%,rgba(31,164,99,.08),transparent 60%)}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(42px,6.5vw,82px);line-height:.98;letter-spacing:-.02em;margin:18px 0 22px}
+.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent)}
+.hero p.lead{font-size:18px;color:var(--bone-dim);max-width:520px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.hero-stats{display:flex;gap:38px}
+.hero-stats .s b{font-family:var(--display);font-size:30px;font-weight:800;display:block}
+.hero-stats .s span{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.hero-card{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;padding:26px}
+.hero-card .tag{align-self:flex-start;background:var(--accent);color:var(--ink);font-size:11px;font-weight:700;padding:6px 13px;border-radius:100px;letter-spacing:.08em}
+.hero-shoe{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(120px,20vw,230px);filter:drop-shadow(0 30px 40px rgba(0,0,0,.5));transform:rotate(-12deg)}
+.hero-card .meta{position:relative;z-index:2}
+.hero-card .meta .name{font-family:var(--display);font-weight:800;font-size:26px}
+.hero-card .meta .price{color:var(--accent);font-weight:600;margin-top:2px}
+
+/* feature strip */
+.feat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:54px}
+.feat-strip .f{background:var(--ink);padding:20px 18px;font-size:13px;color:var(--bone-dim);display:flex;align-items:center;gap:10px}
+.feat-strip .f b{font-size:18px}
+
+/* ============ SECTION HEAD ============ */
+.sec{padding:clamp(56px,8vw,96px) 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:38px}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);line-height:1.04;letter-spacing:-.01em}
+.sec-head h2 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--accent)}
+.sec-head p{color:var(--muted);max-width:440px;margin-top:8px;font-size:15px}
+
+/* ============ MARQUEE BANNER ============ */
+.ribbon{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--ink-2)}
+.ribbon .track{display:inline-flex;gap:30px;animation:marq 30s linear infinite;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--bone-dim)}
+.ribbon .track .dot{color:var(--accent)}
+
+/* ============ FLASH SALE ============ */
+.flash{background:linear-gradient(135deg,#1a0f0a,var(--ink-2));border:1px solid var(--line);border-radius:var(--radius-lg);padding:30px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.flash .lhs{display:flex;align-items:center;gap:18px}
+.flash .fire{font-size:42px}
+.flash h3{font-family:var(--display);font-weight:800;font-size:26px}
+.flash p{color:var(--bone-dim);font-size:14px}
+.countdown{display:flex;gap:10px}
+.cd{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 14px;text-align:center;min-width:62px}
+.cd b{font-family:var(--display);font-size:26px;font-weight:800;display:block;color:var(--accent)}
+.cd span{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* ============ FILTER BAR ============ */
+.filterbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:30px}
+.chip{padding:9px 18px;border-radius:100px;border:1px solid var(--line);font-size:13px;font-weight:500;color:var(--bone-dim);transition:.2s}
+.chip:hover{border-color:var(--bone)}
+.chip.active{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.filterbar .spacer{margin-left:auto}
+.select{background:var(--ink-3);border:1px solid var(--line);border-radius:100px;padding:10px 16px;color:var(--bone);font-size:13px}
+
+/* ============ PRODUCT GRID / CARD ============ */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.pcard{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s;position:relative;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-6px);border-color:#3a3a42;box-shadow:var(--shadow)}
+.pcard .thumb{aspect-ratio:1;background:linear-gradient(160deg,var(--ink-3),#101012);display:grid;place-items:center;font-size:84px;position:relative;overflow:hidden;cursor:pointer}
+.pcard .thumb .emoji{transition:.4s;transform:rotate(-10deg)}
+.pcard:hover .thumb .emoji{transform:rotate(-10deg) scale(1.12)}
+.plabels{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.plabel{font-size:10px;font-weight:700;padding:4px 9px;border-radius:6px;letter-spacing:.06em;text-transform:uppercase}
+.plabel.new{background:var(--green);color:#fff}
+.plabel.hot{background:var(--red);color:#fff}
+.plabel.sale{background:var(--accent);color:var(--ink)}
+.plabel.trend{background:#6b5cff;color:#fff}
+.pwish{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(11,11,12,.7);display:grid;place-items:center;z-index:2;transition:.2s}
+.pwish:hover{background:var(--ink)}
+.pwish svg{width:18px;height:18px;transition:.2s}
+.pwish.on svg{fill:var(--bkash);stroke:var(--bkash)}
+.stockbar{position:absolute;bottom:0;left:0;right:0;padding:7px 12px;font-size:11px;font-weight:600;background:rgba(11,11,12,.82);display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%}
+.dot.in{background:var(--green)}.dot.low{background:var(--accent)}.dot.out{background:var(--red)}
+.pcard .body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pcard .cat{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.pcard .name{font-family:var(--display);font-weight:700;font-size:17px}
+.pcard .rating{font-size:12px;color:var(--accent);display:flex;align-items:center;gap:5px}
+.pcard .rating span{color:var(--muted)}
+.pcard .priceRow{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:8px}
+.pcard .price{font-family:var(--display);font-weight:800;font-size:20px}
+.pcard .was{font-size:14px;color:var(--muted);text-decoration:line-through}
+.pcard .actions{display:flex;gap:8px;margin-top:12px}
+.pcard .actions .btn{flex:1;justify-content:center;padding:11px}
+.pcompare{width:42px;flex:0 0 auto!important;padding:11px 0!important}
+
+/* ============ CATEGORY GRID ============ */
+.catgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.catcard{position:relative;aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;background:linear-gradient(160deg,var(--ink-3),var(--ink-2));border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;cursor:pointer;transition:.3s}
+.catcard:hover{transform:translateY(-5px);border-color:var(--accent)}
+.catcard .ce{position:absolute;top:18px;right:18px;font-size:60px;opacity:.85;transition:.3s}
+.catcard:hover .ce{transform:scale(1.15) rotate(-8deg)}
+.catcard h3{font-family:var(--display);font-weight:800;font-size:22px;position:relative}
+.catcard span{font-size:13px;color:var(--bone-dim);position:relative}
+
+/* ============ WHY / FEATURES ============ */
+.whygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.whycard{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.whycard .ico{width:50px;height:50px;border-radius:13px;background:rgba(231,200,115,.12);display:grid;place-items:center;font-size:24px;margin-bottom:16px}
+.whycard h4{font-family:var(--display);font-weight:700;font-size:18px;margin-bottom:8px}
+.whycard p{font-size:13.5px;color:var(--bone-dim)}
+
+/* ============ LIMITED BANNER ============ */
+.limited{display:grid;grid-template-columns:.95fr 1.05fr;gap:46px;align-items:center;background:linear-gradient(135deg,#100d08,var(--ink-2));border:1px solid var(--line);border-radius:var(--radius-lg);padding:46px;overflow:hidden}
+.limited .visual{aspect-ratio:1;border-radius:var(--radius);background:radial-gradient(circle at 50% 40%,rgba(231,200,115,.18),transparent 60%),var(--ink);display:grid;place-items:center;font-size:150px;border:1px solid var(--line)}
+.limited h2{font-family:var(--display);font-weight:800;font-size:clamp(30px,4vw,48px);line-height:1.02;margin:14px 0 16px}
+.limited h2 em{font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:500}
+.limited p{color:var(--bone-dim);margin-bottom:14px}
+
+/* ============ REVIEWS ============ */
+.revgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.revcard{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.revcard .stars{color:var(--accent);font-size:15px;margin-bottom:12px}
+.revcard p{color:var(--bone);font-size:14.5px;margin-bottom:18px}
+.revcard .who{display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--ink-3);display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--accent);border:1px solid var(--line)}
+.revcard .who b{display:block;font-size:14px}
+.revcard .who span{font-size:12px;color:var(--muted)}
+
+/* ============ HOW IT WORKS ============ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:26px;position:relative}
+.step .num{font-family:var(--display);font-weight:800;font-size:44px;color:var(--ink-3);-webkit-text-stroke:1px var(--line);line-height:1}
+.step h4{font-family:var(--display);font-weight:700;font-size:17px;margin:10px 0 7px}
+.step p{font-size:13px;color:var(--bone-dim)}
+
+/* ============ NEWSLETTER ============ */
+.news{text-align:center;background:linear-gradient(135deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:var(--radius-lg);padding:56px 30px}
+.news h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.6vw,40px);margin-bottom:12px}
+.news h2 em{font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:500}
+.news p{color:var(--bone-dim);max-width:440px;margin:0 auto 26px}
+.news form{display:flex;gap:10px;max-width:440px;margin:0 auto}
+.news input{flex:1;background:var(--ink);border:1px solid var(--line);border-radius:100px;padding:14px 20px;color:var(--bone)}
+.news input:focus{outline:none;border-color:var(--accent)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);background:var(--ink-2);padding:60px 0 30px;margin-top:40px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-grid h5{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.foot-grid a{display:block;color:var(--bone-dim);font-size:14px;padding:5px 0;transition:.2s}
+.foot-grid a:hover{color:var(--accent)}
+.foot-grid .logo{margin-bottom:14px}
+.foot-grid .about{color:var(--bone-dim);font-size:14px;max-width:300px}
+.pay-icons{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.pay-icons span{font-size:11px;background:var(--ink);border:1px solid var(--line);padding:6px 11px;border-radius:8px;color:var(--bone-dim)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
+
+/* ============ DRAWERS / MODALS ============ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:500;opacity:0;visibility:hidden;transition:.3s}
 .overlay.open{opacity:1;visibility:visible}
-.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);width:min(560px,94vw);max-height:88vh;overflow-y:auto;background:var(--ink-2);border:1px solid var(--line);border-radius:18px;z-index:201;opacity:0;visibility:hidden;transition:.25s}
-.modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
-.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
-.modal-head h3{font-family:var(--display);font-size:19px}
-.modal-body{padding:22px}
-.modal-foot{padding:18px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
-/* misc */
-.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-.toolbar .spacer{margin-left:auto}
-.seg{display:flex;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.seg button{padding:8px 15px;font-size:12.5px;color:var(--bone-dim)}
-.seg button.active{background:var(--accent);color:var(--ink);font-weight:600}
-.stat-mini{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:12px}
-.stat-mini .si{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:20px}
-.stat-mini b{font-family:var(--display);font-size:20px;display:block}
-.stat-mini span{font-size:11px;color:var(--muted)}
-.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;gap:10px}
-.toast{background:var(--bone);color:var(--ink);padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 12px 30px -10px rgba(0,0,0,.6);animation:tin .3s}
-@keyframes tin{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-.alert-item{display:flex;gap:12px;padding:13px;border:1px solid var(--line);border-radius:11px;margin-bottom:10px}
-.alert-item .ai{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;font-size:17px;flex:0 0 auto}
-.alert-item b{font-size:13.5px}.alert-item p{font-size:12px;color:var(--muted)}
-.alert-item .t{margin-left:auto;font-size:11px;color:var(--muted);white-space:nowrap}
-.bkash-bar{display:flex;flex-direction:column;gap:11px}
-.hbar{display:grid;grid-template-columns:120px 1fr 60px;align-items:center;gap:12px;font-size:13px}
-.hbar .track{height:12px;background:var(--ink-3);border-radius:6px;overflow:hidden}
-.hbar .track>div{height:100%;border-radius:6px}
-.perm-table td{font-size:13px}
-.check{color:var(--green);font-weight:700}.cross{color:var(--muted)}
-.tag-input{display:flex;gap:6px;flex-wrap:wrap;padding:8px;background:var(--ink);border:1px solid var(--line);border-radius:9px}
-.tag-input .tg{background:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-size:12px;display:flex;align-items:center;gap:6px}
-.mini-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.mini-tabs button{padding:8px 15px;border-radius:9px;font-size:13px;color:var(--bone-dim);border:1px solid var(--line);background:var(--ink-2)}
-.mini-tabs button.active{background:var(--accent);color:var(--ink);font-weight:600;border-color:var(--accent)}
-@media(max-width:1100px){.kpi-grid,.grid-3{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-2b{grid-template-columns:1fr}}
-@media(max-width:820px){.layout{grid-template-columns:1fr}.sidebar{position:fixed;left:0;top:0;z-index:150;transform:translateX(-100%);transition:.3s;width:248px}.sidebar.open{transform:translateX(0)}.menu-toggle{display:grid!important}.search-mini{display:none}.kpi-grid{grid-template-columns:1fr 1fr}}
-.menu-toggle{display:none;width:40px;height:40px;border-radius:10px;background:var(--ink-2);border:1px solid var(--line);place-items:center}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--ink-2);border-left:1px solid var(--line);z-index:600;transform:translateX(100%);transition:.35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:22px;border-bottom:1px solid var(--line)}
+.drawer-head h3{font-family:var(--display);font-weight:800;font-size:20px}
+.drawer-body{flex:1;overflow-y:auto;padding:22px}
+.drawer-foot{padding:22px;border-top:1px solid var(--line)}
+.cart-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cart-item .ci-thumb{width:72px;height:72px;border-radius:10px;background:var(--ink-3);display:grid;place-items:center;font-size:34px;flex:0 0 auto}
+.cart-item .ci-info{flex:1}
+.cart-item .ci-info .nm{font-weight:600;font-size:14px}
+.cart-item .ci-info .vr{font-size:12px;color:var(--muted)}
+.cart-item .ci-info .pr{color:var(--accent);font-weight:700;margin-top:4px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:100px;margin-top:8px}
+.qty button{width:28px;height:28px;font-size:16px;color:var(--bone)}
+.qty span{min-width:26px;text-align:center;font-size:13px;font-weight:600}
+.ci-remove{font-size:12px;color:var(--muted);margin-top:6px}
+.ci-remove:hover{color:var(--red)}
+.cart-empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.cart-empty .e{font-size:60px;margin-bottom:14px}
+.summ-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;color:var(--bone-dim)}
+.summ-row.tot{font-size:18px;font-weight:700;color:var(--bone);border-top:1px solid var(--line);margin-top:8px;padding-top:14px}
+.coupon-row{display:flex;gap:8px;margin:14px 0}
+.coupon-row input{flex:1;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--bone);font-size:13px}
+
+/* product modal */
+.modal{position:fixed;inset:0;z-index:600;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;transition:.3s}
+.modal.open{opacity:1;visibility:visible}
+.modal-card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius-lg);width:min(960px,100%);max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);transform:scale(.96);transition:.3s}
+.modal.open .modal-card{transform:scale(1)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr}
+.modal-gallery{background:linear-gradient(160deg,var(--ink-3),#0d0d0f);padding:30px;display:flex;flex-direction:column;gap:14px}
+.modal-main-img{aspect-ratio:1;display:grid;place-items:center;font-size:160px;cursor:zoom-in;border-radius:var(--radius);overflow:hidden;transition:.3s;background:radial-gradient(circle at 50% 45%,rgba(231,200,115,.1),transparent 60%)}
+.modal-main-img.zoom{transform:scale(1.4)}
+.modal-thumbs{display:flex;gap:10px;justify-content:center}
+.modal-thumbs .t{width:56px;height:56px;border-radius:10px;background:var(--ink);border:1px solid var(--line);display:grid;place-items:center;font-size:26px;cursor:pointer;transition:.2s}
+.modal-thumbs .t.active{border-color:var(--accent)}
+.modal-info{padding:34px}
+.modal-info .cat{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.modal-info h2{font-family:var(--display);font-weight:800;font-size:30px;margin:6px 0 10px}
+.modal-info .pr{display:flex;align-items:center;gap:12px;margin:14px 0}
+.modal-info .pr .now{font-family:var(--display);font-size:30px;font-weight:800;color:var(--accent)}
+.modal-info .pr .old{text-decoration:line-through;color:var(--muted);font-size:18px}
+.modal-info .pr .off{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px}
+.opt-group{margin:18px 0}
+.opt-group .lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap}
+.opt{min-width:44px;padding:9px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-weight:600;text-align:center;transition:.2s}
+.opt:hover{border-color:var(--bone)}
+.opt.active{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.opt.swatch{width:34px;height:34px;min-width:0;padding:0;border-radius:50%}
+.opt.swatch.active{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--accent)}
+.modal-desc{font-size:14px;color:var(--bone-dim);margin:16px 0;padding-top:16px;border-top:1px solid var(--line)}
+.modal-feat{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.modal-feat span{font-size:12px;background:var(--ink);border:1px solid var(--line);padding:6px 11px;border-radius:8px;color:var(--bone-dim)}
+.share-row{display:flex;gap:8px;align-items:center;margin-top:16px;font-size:13px;color:var(--muted)}
+.share-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.2s}
+.share-btn:hover{border-color:var(--accent);background:var(--ink)}
+
+/* search modal */
+.search-modal{position:fixed;inset:0;z-index:650;background:rgba(11,11,12,.96);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.25s;padding-top:90px}
+.search-modal.open{opacity:1;visibility:visible}
+.search-box{max-width:680px;margin:0 auto;padding:0 24px}
+.search-input-wrap{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--line);padding:14px 4px}
+.search-input-wrap input{flex:1;background:none;border:none;color:var(--bone);font-size:26px;font-family:var(--display)}
+.search-input-wrap input:focus{outline:none}
+.search-section{margin-top:28px}
+.search-section .h{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.sugg{display:flex;gap:8px;flex-wrap:wrap}
+.sugg a{padding:8px 15px;border:1px solid var(--line);border-radius:100px;font-size:13px;color:var(--bone-dim);transition:.2s}
+.sugg a:hover{border-color:var(--accent);color:var(--bone)}
+.search-results{margin-top:24px;display:flex;flex-direction:column;gap:4px;max-height:50vh;overflow-y:auto}
+.sr{display:flex;align-items:center;gap:14px;padding:12px;border-radius:12px;transition:.2s;cursor:pointer}
+.sr:hover{background:var(--ink-2)}
+.sr .e{width:48px;height:48px;border-radius:10px;background:var(--ink-3);display:grid;place-items:center;font-size:26px}
+.sr .nm{font-weight:600}
+.sr .ct{font-size:12px;color:var(--muted)}
+.sr .pr{margin-left:auto;color:var(--accent);font-weight:700}
+.no-result{text-align:center;padding:40px;color:var(--muted)}
+
+/* toast */
+.toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:800;display:flex;flex-direction:column;gap:10px;align-items:center}
+.toast{background:var(--bone);color:var(--ink);padding:13px 22px;border-radius:100px;font-size:14px;font-weight:600;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;animation:toastIn .3s}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* compare bar */
+.compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink-3);border-top:1px solid var(--accent);z-index:400;transform:translateY(100%);transition:.3s;padding:16px 0}
+.compare-bar.open{transform:translateY(0)}
+.compare-bar .inner{display:flex;align-items:center;gap:16px}
+.compare-bar .items{display:flex;gap:10px;flex:1}
+.compare-bar .ci{display:flex;align-items:center;gap:8px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px}
+.compare-bar .ci .x{color:var(--muted);cursor:pointer}
+
+/* page views (account, about, contact, checkout) */
+.view{display:none}
+.view.active{display:block}
+.page-head{padding:60px 0 30px;border-bottom:1px solid var(--line);background:radial-gradient(80% 100% at 50% 0,rgba(231,200,115,.07),transparent)}
+.page-head h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,5vw,56px)}
+.page-head .crumb{font-size:13px;color:var(--muted);margin-bottom:10px}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:var(--bone);font-size:14px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.checkout-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:30px;align-items:start}
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pay-opt{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.pay-opt:hover{border-color:var(--bone)}
+.pay-opt.active{border-color:var(--accent);background:rgba(231,200,115,.08)}
+.pay-opt .e{font-size:24px;display:block;margin-bottom:6px}
+.acct-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tracking{display:flex;flex-direction:column;gap:0}
+.track-step{display:flex;gap:16px;padding-bottom:24px;position:relative}
+.track-step::before{content:'';position:absolute;left:13px;top:28px;bottom:-4px;width:2px;background:var(--line)}
+.track-step:last-child::before{display:none}
+.track-step .tdot{width:28px;height:28px;border-radius:50%;background:var(--ink-3);border:2px solid var(--line);display:grid;place-items:center;flex:0 0 auto;z-index:2;font-size:13px}
+.track-step.done .tdot{background:var(--green);border-color:var(--green)}
+.track-step.active .tdot{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.track-step h5{font-weight:700;font-size:15px}
+.track-step p{font-size:13px;color:var(--muted)}
+.order-row{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px}
+.order-row .oe{width:50px;height:50px;border-radius:10px;background:var(--ink-3);display:grid;place-items:center;font-size:26px}
+.status-pill{font-size:11px;font-weight:700;padding:5px 11px;border-radius:100px;letter-spacing:.04em}
+.status-pill.delivered{background:rgba(31,164,99,.15);color:var(--green)}
+.status-pill.shipped{background:rgba(231,200,115,.15);color:var(--accent)}
+.status-pill.processing{background:rgba(107,92,255,.15);color:#9d92ff}
+
+/* responsive */
+@media(max-width:1024px){.pgrid,.catgrid,.whygrid{grid-template-columns:repeat(2,1fr)}.feat-strip{grid-template-columns:repeat(2,1fr)}.revgrid,.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-card{max-width:420px}.limited{grid-template-columns:1fr}.modal-grid{grid-template-columns:1fr}.checkout-grid{grid-template-columns:1fr}.nav-links{display:none}.hamburger{display:grid}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.pgrid,.catgrid,.whygrid,.revgrid,.steps,.feat-strip,.pay-grid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.hero-stats{flex-wrap:wrap;gap:22px}}
+/* ===== SOLÈME LIGHT BRAND THEME (overrides) ===== */
+:root{
+  --bg:#f6f2e8;
+  --ink:#16243f; --ink-2:#ffffff; --ink-3:#efe8d8; --line:#e6dfcc;
+  --bone:#16243f; --bone-dim:#586073; --muted:#8c8674;
+  --accent:#b8902c; --accent-2:#9a771d;
+  --shadow:0 18px 48px -24px rgba(22,36,63,.30);
+}
+body{background:var(--bg);color:var(--bone)}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar-track{background:#efeadd}
+::-webkit-scrollbar-thumb{background:#d8d0bb}
+.logo-mark{height:40px;width:auto;border-radius:7px;display:block}
+header.nav{background:rgba(246,242,232,.86);border-bottom:1px solid var(--line)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:var(--accent);color:#fff}
+.btn-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-dark:hover{background:var(--ink-3);border-color:var(--accent)}
+.btn-gold{color:#15233f}
+.feat-strip{background:var(--line)}
+.feat-strip .f{background:#fff;color:var(--bone-dim)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.opt.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.opt.swatch.active{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+.toast{background:var(--ink);color:#fff}
+.news input,.field input,.field select,.field textarea,.cd,.coupon-row input,.compare-bar .ci{background:#fff;color:var(--ink)}
+.pay-icons span,.modal-feat span{background:var(--bg);color:var(--bone-dim)}
+.pcard .thumb{background:linear-gradient(160deg,#f3eede,#e7dfca)}
+.modal-gallery{background:linear-gradient(160deg,#f3eede,#e7dfca)}
+.modal-thumbs .t{background:#fff}
+.flash{background:linear-gradient(135deg,#fbf4e2,#ffffff)}
+.limited{background:linear-gradient(135deg,#fbf4e2,#ffffff)}
+.limited .visual{background:radial-gradient(circle at 50% 40%,rgba(184,144,44,.16),transparent 60%),var(--bg)}
+.pwish{background:rgba(255,255,255,.85)}
+.pwish:hover{background:#fff}
+.stockbar{background:rgba(255,255,255,.9);color:var(--ink)}
+.search-modal{background:rgba(246,242,232,.97)}
+.overlay{background:rgba(20,28,48,.42)}
+.step .num{color:var(--ink-3);-webkit-text-stroke:1px var(--line)}
 </style>
 </head>
 <body>
-<div class="layout">
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sb-logo">SOL<b>È</b>ME<small>ADMIN CONTROL SYSTEM</small></div>
-  <nav class="sb-nav">
-    <div class="sb-item active" data-v="dashboard" onclick="nav('dashboard',this)"><span class="ic">📊</span> Dashboard</div>
-    <div class="sb-group">Catalog & Orders</div>
-    <div class="sb-item" data-v="products" onclick="nav('products',this)"><span class="ic">👟</span> Products</div>
-    <div class="sb-item" data-v="orders" onclick="nav('orders',this)"><span class="ic">📦</span> Orders <span class="badge">7</span></div>
-    <div class="sb-item" data-v="inventory" onclick="nav('inventory',this)"><span class="ic">📦</span> Inventory <span class="badge">3</span></div>
-    <div class="sb-item" data-v="customers" onclick="nav('customers',this)"><span class="ic">👥</span> Customers</div>
-    <div class="sb-group">Finance</div>
-    <div class="sb-item" data-v="sales" onclick="nav('sales',this)"><span class="ic">📈</span> Sales & Profit</div>
-    <div class="sb-item" data-v="expenses" onclick="nav('expenses',this)"><span class="ic">💸</span> Expenses</div>
-    <div class="sb-item" data-v="coupons" onclick="nav('coupons',this)"><span class="ic">🏷️</span> Discounts & Coupons</div>
-    <div class="sb-group">System</div>
-    <div class="sb-item" data-v="reports" onclick="nav('reports',this)"><span class="ic">📄</span> Reports & Export</div>
-    <div class="sb-item" data-v="roles" onclick="nav('roles',this)"><span class="ic">🔐</span> Role-Based Admin</div>
-    <div class="sb-item" data-v="notifications" onclick="nav('notifications',this)"><span class="ic">🔔</span> Notifications <span class="badge">5</span></div>
-  </nav>
-  <div class="sb-foot">
-    <a href="index.html" class="btn btn-dark btn-sm" style="width:100%;justify-content:center;margin-bottom:12px">← View Storefront</a>
-    <div class="sb-user"><div class="sb-ava">SH</div><div><b>Sabbir Hossain</b><span>Super Admin</span></div></div>
-  </div>
-</aside>
 
-<!-- MAIN -->
-<div class="main">
-  <div class="topbar">
-    <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-    <h1 id="pageTitle">Dashboard</h1>
-    <div class="search-mini"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input placeholder="Search orders, products, customers…"></div>
-    <div class="tb-actions">
-      <button class="tb-btn" onclick="nav('notifications',document.querySelector('[data-v=notifications]'))">🔔<span class="tb-dot"></span></button>
-      <button class="tb-btn" onclick="toast('Settings')">⚙️</button>
-      <button class="btn btn-gold" onclick="openProductModal()">+ Add Product</button>
+<!-- ===== TOP MARQUEE ===== -->
+<div class="topbar"><div class="track">
+  <span>🚚 Free delivery in Dhaka above ৳3,000</span><span>✦ New Drop — Season 01 Now Live</span><span>💳 bKash · Nagad · Rocket · COD</span><span>↩️ 7-day easy exchange</span>
+  <span>🚚 Free delivery in Dhaka above ৳3,000</span><span>✦ New Drop — Season 01 Now Live</span><span>💳 bKash · Nagad · Rocket · COD</span><span>↩️ 7-day easy exchange</span>
+</div></div>
+
+<!-- ===== HEADER ===== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo" onclick="go('home');return false"><img src="assets/soleme-mark.jpg" alt="SOLÈME" class="logo-mark">SOL<b>È</b>ME</a>
+    <nav class="nav-links">
+      <a href="#" onclick="go('home');return false">Home</a>
+      <a href="#shop" onclick="go('home');setTimeout(()=>scrollToId('shop'),60);return false">Shop</a>
+      <a href="#" onclick="go('home');setTimeout(()=>scrollToId('categories'),60);return false">Collections</a>
+      <a href="#" onclick="go('about');return false">Our Story</a>
+      <a href="#" onclick="go('contact');return false">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openSearch()" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="icon-btn" onclick="go('account')" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></button>
+      <button class="icon-btn" onclick="openWish()" aria-label="Wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3.2 1.2 4 2.4C10.8 6.2 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg><span class="badge-count" id="wishCount" style="display:none">0</span></button>
+      <button class="icon-btn" onclick="openCart()" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M6 6 5 3H2"/></svg><span class="badge-count" id="cartCount" style="display:none">0</span></button>
     </div>
   </div>
-  <div class="content">
-<!-- ============ DASHBOARD ============ -->
-<div class="view active" id="v-dashboard">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">💰 Total Revenue</div><div class="val">৳8,42,650</div><div class="chg up">↗ +18.4% vs last month</div></div>
-    <div class="kpi"><div class="lab">📦 Orders</div><div class="val">1,284</div><div class="chg up">↗ +12.1%</div></div>
-    <div class="kpi"><div class="lab">📈 Net Profit</div><div class="val">৳2,68,400</div><div class="chg up">↗ +9.7%</div></div>
-    <div class="kpi"><div class="lab">👥 New Customers</div><div class="val">342</div><div class="chg down">↘ -3.2%</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-head"><div><h3>Revenue Tracking</h3><div class="sub">Daily / Weekly / Monthly insights</div></div>
-        <div class="seg"><button class="active" onclick="segToggle(this)">Daily</button><button onclick="segToggle(this)">Weekly</button><button onclick="segToggle(this)">Monthly</button></div>
+</header>
+
+<!-- ================= HOME VIEW ================= -->
+<div class="view active" id="view-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Dhaka, Bangladesh · Est. 2024</span>
+        <h1>Crafted for the <em>streets</em> of Bangladesh</h1>
+        <p class="lead">Premium sneakers that carry a story — of where you've been, and where you're going. No import markups. No compromises.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="scrollToId('shop')">Shop Collection →</button>
+          <button class="btn btn-ghost" onclick="go('about')">Our Story</button>
+        </div>
+        <div class="hero-stats">
+          <div class="s"><b>12+</b><span>Silhouettes</span></div>
+          <div class="s"><b>৳1.5K</b><span>Starts From</span></div>
+          <div class="s"><b>48h</b><span>Dhaka Delivery</span></div>
+        </div>
       </div>
-      <div class="bars" id="revBars"></div>
-      <div class="legend"><span class="k"><span class="dot" style="background:var(--accent)"></span> Revenue</span><span class="k"><span class="dot" style="background:var(--blue)"></span> Profit</span></div>
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>Order Status</h3></div>
-      <div class="donut-wrap">
-        <div class="donut" style="background:conic-gradient(var(--green) 0 46%,var(--accent) 46% 70%,var(--blue) 70% 86%,var(--purple) 86% 95%,var(--red) 95% 100%)"><div class="donut-center"><b>1,284</b><span>Total Orders</span></div></div>
-        <div style="flex:1">
-          <div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--green);display:inline-block;margin-right:7px"></span>Delivered</span><b>591</b></div>
-          <div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--accent);display:inline-block;margin-right:7px"></span>Shipped</span><b>308</b></div>
-          <div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--blue);display:inline-block;margin-right:7px"></span>Processing</span><b>205</b></div>
-          <div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--purple);display:inline-block;margin-right:7px"></span>Pending</span><b>116</b></div>
-          <div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--red);display:inline-block;margin-right:7px"></span>Cancelled</span><b>64</b></div>
+      <div class="hero-card">
+        <span class="tag">NEW DROP</span>
+        <div class="hero-shoe">👟</div>
+        <div class="meta">
+          <div class="name">NOIR LOW</div>
+          <div class="price">৳2,499 · Season 01</div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="grid-3">
-    <div class="card"><div class="card-head"><h3>Top Products</h3></div>
-      <div id="topProducts"></div></div>
-    <div class="card"><div class="card-head"><h3>Recent Orders</h3></div>
-      <div id="recentOrders"></div></div>
-    <div class="card"><div class="card-head"><h3>Business Insights</h3></div>
-      <div class="stat-mini" style="margin-bottom:12px"><div class="si" style="background:rgba(31,164,99,.15)">💵</div><div><b>৳656</b><span>Avg. order value</span></div></div>
-      <div class="stat-mini" style="margin-bottom:12px"><div class="si" style="background:rgba(231,200,115,.15)">🔁</div><div><b>32%</b><span>Repeat purchase rate</span></div></div>
-      <div class="stat-mini"><div class="si" style="background:rgba(91,141,239,.15)">📉</div><div><b>1.8%</b><span>Cart abandonment recovered</span></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ PRODUCTS ============ -->
-<div class="view" id="v-products">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Total Products</div><div class="val">12</div><div class="chg up">2 active drafts</div></div>
-    <div class="kpi"><div class="lab">Active / Visible</div><div class="val">10</div><div class="chg up">Published</div></div>
-    <div class="kpi"><div class="lab">Featured</div><div class="val">4</div><div class="chg" style="color:var(--muted)">On homepage</div></div>
-    <div class="kpi"><div class="lab">Out of Stock</div><div class="val">1</div><div class="chg down">Needs restock</div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><h3>Product Management</h3>
-      <div style="display:flex;gap:10px"><button class="btn btn-dark btn-sm" onclick="toast('Bulk CSV upload dialog')">⬆ Bulk Upload (CSV)</button><button class="btn btn-gold btn-sm" onclick="openProductModal()">+ Add Product</button></div>
-    </div>
-    <div class="toolbar">
-      <input class="field" style="max-width:240px;margin:0" placeholder="Search products…" oninput="filterProdTable(this.value)">
-      <select class="field" style="max-width:160px;margin:0" onchange="filterProdCat(this.value)"><option value="all">All Categories</option><option>Low Tops</option><option>High Tops</option><option>Mid Tops</option><option>Runners</option><option>Limited</option></select>
-      <select class="field" style="max-width:160px;margin:0" onchange="filterProdStatus(this.value)"><option value="all">All Status</option><option value="Active">Active</option><option value="Draft">Draft</option></select>
-    </div>
-    <table><thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Price</th><th>Cost</th><th>Stock</th><th>Visibility</th><th>Featured</th><th></th></tr></thead><tbody id="prodTable"></tbody></table>
-  </div>
-</div>
-<!-- ============ ORDERS ============ -->
-<div class="view" id="v-orders">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Pending</div><div class="val">116</div><div class="chg" style="color:var(--purple)">Awaiting confirmation</div></div>
-    <div class="kpi"><div class="lab">Processing</div><div class="val">205</div><div class="chg" style="color:var(--blue)">Being packed</div></div>
-    <div class="kpi"><div class="lab">Shipped</div><div class="val">308</div><div class="chg" style="color:var(--accent)">In transit</div></div>
-    <div class="kpi"><div class="lab">Delivered</div><div class="val">591</div><div class="chg up">Completed</div></div>
-  </div>
-  <div class="card">
-    <div class="card-head"><h3>Order Management</h3>
-      <div style="display:flex;gap:10px"><button class="btn btn-dark btn-sm" onclick="toast('Exporting orders to Excel…')">⬇ Export</button></div>
-    </div>
-    <div class="toolbar">
-      <input class="field" style="max-width:220px;margin:0" placeholder="Search order ID / customer…" oninput="filterOrders(this.value)">
-      <select class="field" style="max-width:170px;margin:0" onchange="filterOrderStatus(this.value)"><option value="all">All Statuses</option><option>Pending</option><option>Confirmed</option><option>Processing</option><option>Packed</option><option>Shipped</option><option>Delivered</option><option>Returned</option><option>Cancelled</option></select>
-    </div>
-    <table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody id="orderTable"></tbody></table>
-  </div>
-</div>
-
-<!-- ============ INVENTORY ============ -->
-<div class="view" id="v-inventory">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Total Stock Units</div><div class="val">2,418</div><div class="chg up">Across 12 products</div></div>
-    <div class="kpi"><div class="lab">Inventory Value</div><div class="val">৳42.6L</div><div class="chg" style="color:var(--muted)">At cost price</div></div>
-    <div class="kpi"><div class="lab">Low Stock Alerts</div><div class="val" style="color:var(--accent)">3</div><div class="chg down">Reorder soon</div></div>
-    <div class="kpi"><div class="lab">Dead Stock</div><div class="val" style="color:var(--red)">1</div><div class="chg down">No sales 60d+</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-head"><h3>Stock Levels & Restock</h3><button class="btn btn-dark btn-sm" onclick="toast('Stock in/out log opened')">📝 Stock In/Out Log</button></div>
-      <table><thead><tr><th>Product</th><th>In Stock</th><th>Reorder Lvl</th><th>Status</th><th>Recommend</th></tr></thead><tbody id="invTable"></tbody></table>
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>Inventory Health</h3></div>
-      <div class="alert-item"><div class="ai" style="background:rgba(231,200,115,.15)">⚠️</div><div><b>VELOX RUNNER</b><p>Out of stock · 12 pending backorders</p></div><span class="t">Critical</span></div>
-      <div class="alert-item"><div class="ai" style="background:rgba(231,200,115,.15)">📦</div><div><b>DHAKA HIGH</b><p>Only 18 units left · below reorder level</p></div><span class="t">Low</span></div>
-      <div class="alert-item"><div class="ai" style="background:rgba(231,200,115,.15)">📦</div><div><b>RICKSHAW HIGH</b><p>Only 22 units left</p></div><span class="t">Low</span></div>
-      <div class="alert-item"><div class="ai" style="background:rgba(224,83,61,.15)">💀</div><div><b>SERIAL ONE</b><p>Dead stock — 0 sales in 64 days. Consider promo.</p></div><span class="t">Dead</span></div>
-      <div style="margin-top:14px;padding:14px;border:1px dashed var(--line);border-radius:11px;font-size:13px;color:var(--bone-dim)">🤖 <b>Restock engine:</b> Based on 30-day velocity, reorder <b>NOIR LOW (+120)</b>, <b>METRO RUNNER (+80)</b>, and <b>VELOX RUNNER (+60)</b> this week.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ CUSTOMERS ============ -->
-<div class="view" id="v-customers">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Total Customers</div><div class="val">3,847</div><div class="chg up">↗ +342 this month</div></div>
-    <div class="kpi"><div class="lab">VIP Customers</div><div class="val">128</div><div class="chg" style="color:var(--accent)">৳10K+ spent</div></div>
-    <div class="kpi"><div class="lab">Repeat Buyers</div><div class="val">32%</div><div class="chg up">↗ +4%</div></div>
-    <div class="kpi"><div class="lab">Avg. LTV</div><div class="val">৳4,280</div><div class="chg up">Lifetime value</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-head"><h3>Customer Database</h3><button class="btn btn-dark btn-sm" onclick="toast('Export customers')">⬇ Export</button></div>
-      <div class="toolbar"><input class="field" style="max-width:220px;margin:0" placeholder="Search customers…" oninput="filterCust(this.value)"><select class="field" style="max-width:150px;margin:0" onchange="filterCustSeg(this.value)"><option value="all">All Segments</option><option>VIP</option><option>Repeat</option><option>New</option></select></div>
-      <table><thead><tr><th>Customer</th><th>Orders</th><th>Spent</th><th>Segment</th><th>Last Order</th></tr></thead><tbody id="custTable"></tbody></table>
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>Top Customers Ranking</h3></div>
-      <div id="topCust"></div>
-      <div class="card-head" style="margin-top:20px"><h3 style="font-size:15px">Segmentation</h3></div>
-      <div class="hbar"><span>VIP</span><div class="track"><div style="width:18%;background:var(--accent)"></div></div><span>128</span></div>
-      <div class="hbar"><span>Repeat</span><div class="track"><div style="width:42%;background:var(--blue)"></div></div><span>1,231</span></div>
-      <div class="hbar"><span>New</span><div class="track"><div style="width:64%;background:var(--green)"></div></div><span>2,488</span></div>
-    </div>
-  </div>
-</div>
-<!-- ============ SALES & PROFIT ============ -->
-<div class="view" id="v-sales">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Gross Revenue</div><div class="val">৳8,42,650</div><div class="chg up">↗ +18.4%</div></div>
-    <div class="kpi"><div class="lab">Total Cost (COGS)</div><div class="val">৳4,98,200</div><div class="chg" style="color:var(--muted)">59.1% of revenue</div></div>
-    <div class="kpi"><div class="lab">Net Profit</div><div class="val" style="color:var(--green)">৳2,68,400</div><div class="chg up">31.9% margin</div></div>
-    <div class="kpi"><div class="lab">Units Sold</div><div class="val">1,284</div><div class="chg up">↗ +12.1%</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card"><div class="card-head"><div><h3>Revenue vs Cost vs Profit</h3><div class="sub">Last 6 months</div></div></div>
-      <div class="bars" id="salesBars"></div>
-      <div class="legend"><span class="k"><span class="dot" style="background:var(--accent)"></span> Revenue</span><span class="k"><span class="dot" style="background:var(--blue)"></span> Profit</span></div>
-    </div>
-    <div class="card"><div class="card-head"><h3>Profit by Category</h3></div>
-      <div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--accent) 0 34%,var(--blue) 34% 58%,var(--green) 58% 78%,var(--purple) 78% 92%,var(--red) 92% 100%)"><div class="donut-center"><b>৳2.68L</b><span>Net Profit</span></div></div>
-        <div style="flex:1"><div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--accent);display:inline-block;margin-right:7px"></span>Low Tops</span><b>34%</b></div><div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--blue);display:inline-block;margin-right:7px"></span>Limited</span><b>24%</b></div><div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--green);display:inline-block;margin-right:7px"></span>High Tops</span><b>20%</b></div><div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--purple);display:inline-block;margin-right:7px"></span>Runners</span><b>14%</b></div><div class="hbar" style="grid-template-columns:1fr auto"><span><span class="dot" style="background:var(--red);display:inline-block;margin-right:7px"></span>Mid Tops</span><b>8%</b></div></div>
+    <div class="wrap">
+      <div class="feat-strip">
+        <div class="f"><b>🚚</b> Free Dhaka delivery ৳3K+</div>
+        <div class="f"><b>📦</b> Nationwide 3–5 days</div>
+        <div class="f"><b>↩️</b> 7-day easy exchange</div>
+        <div class="f"><b>💚</b> bKash · Nagad · COD</div>
+        <div class="f"><b>💬</b> WhatsApp 9AM–9PM</div>
       </div>
     </div>
-  </div>
-  <div class="card"><div class="card-head"><div><h3>Product-wise Profit Analysis</h3><div class="sub">Cost vs selling price · auto-calculated margins</div></div><button class="btn btn-dark btn-sm" onclick="toast('Daily summary report')">📅 Daily Summary</button></div>
-    <table><thead><tr><th>Product</th><th>Units</th><th>Sell Price</th><th>Cost</th><th>Unit Profit</th><th>Revenue</th><th>Total Profit</th><th>Margin</th></tr></thead><tbody id="profitTable"></tbody></table>
-  </div>
-</div>
+  </section>
 
-<!-- ============ EXPENSES ============ -->
-<div class="view" id="v-expenses">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Total Expenses (Mo)</div><div class="val">৳1,12,400</div><div class="chg down">↗ +6.2%</div></div>
-    <div class="kpi"><div class="lab">Budget</div><div class="val">৳1,30,000</div><div class="chg up">86% used</div></div>
-    <div class="kpi"><div class="lab">Expense vs Revenue</div><div class="val">13.3%</div><div class="chg up">Healthy</div></div>
-    <div class="kpi"><div class="lab">Largest Category</div><div class="val" style="font-size:22px">Marketing</div><div class="chg" style="color:var(--muted)">৳42,000</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card"><div class="card-head"><h3>Expense Management</h3><button class="btn btn-gold btn-sm" onclick="openExpenseModal()">+ Add Expense</button></div>
-      <table><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead><tbody id="expTable"></tbody></table>
-    </div>
-    <div class="card"><div class="card-head"><h3>Expense Breakdown</h3></div>
-      <div class="bkash-bar">
-        <div class="hbar"><span>Marketing / Ads</span><div class="track"><div style="width:88%;background:var(--accent)"></div></div><span>৳42K</span></div>
-        <div class="hbar"><span>Delivery / Logistics</span><div class="track"><div style="width:62%;background:var(--blue)"></div></div><span>৳28K</span></div>
-        <div class="hbar"><span>Staff / Salary</span><div class="track"><div style="width:50%;background:var(--green)"></div></div><span>৳24K</span></div>
-        <div class="hbar"><span>Office / Operations</span><div class="track"><div style="width:28%;background:var(--purple)"></div></div><span>৳12K</span></div>
-        <div class="hbar"><span>Miscellaneous</span><div class="track"><div style="width:14%;background:var(--red)"></div></div><span>৳6.4K</span></div>
+  <!-- RIBBON -->
+  <div class="ribbon"><div class="track">
+    <span>The Sole Speaks <span class="dot">✦</span></span><span>Walk With Intention <span class="dot">✦</span></span><span>Born in Dhaka <span class="dot">✦</span></span><span>Season 01 — Now Live <span class="dot">✦</span></span><span>Premium Footwear for Bangladesh <span class="dot">✦</span></span>
+    <span>The Sole Speaks <span class="dot">✦</span></span><span>Walk With Intention <span class="dot">✦</span></span><span>Born in Dhaka <span class="dot">✦</span></span><span>Season 01 — Now Live <span class="dot">✦</span></span><span>Premium Footwear for Bangladesh <span class="dot">✦</span></span>
+  </div></div>
+
+  <!-- FLASH SALE -->
+  <section class="sec" style="padding-bottom:0"><div class="wrap">
+    <div class="flash">
+      <div class="lhs">
+        <div class="fire">🔥</div>
+        <div><h3>Flash Sale — Up to 35% Off</h3><p>Limited-time Season 01 launch pricing. Ends soon.</p></div>
       </div>
-      <div class="card-head" style="margin-top:22px"><h3 style="font-size:15px">Budget Tracking</h3></div>
-      <div class="hbar" style="grid-template-columns:1fr"><span>৳1,12,400 of ৳1,30,000 used</span></div>
-      <div class="progress"><div style="width:86%"></div></div>
+      <div class="countdown" id="countdown">
+        <div class="cd"><b id="cd-h">11</b><span>Hours</span></div>
+        <div class="cd"><b id="cd-m">42</b><span>Mins</span></div>
+        <div class="cd"><b id="cd-s">09</b><span>Secs</span></div>
+      </div>
     </div>
-  </div>
+  </div></section>
+
+  <!-- CATEGORIES -->
+  <section class="sec" id="categories"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Shop by Style</span><h2>Find your <em>silhouette</em></h2></div></div>
+    <div class="catgrid">
+      <div class="catcard" onclick="filterCat('Low Tops')"><div class="ce">👟</div><h3>Low Tops</h3><span>Everyday essentials</span></div>
+      <div class="catcard" onclick="filterCat('High Tops')"><div class="ce">🥾</div><h3>High Tops</h3><span>Ankle support, bold stance</span></div>
+      <div class="catcard" onclick="filterCat('Runners')"><div class="ce">🏃</div><h3>Runners</h3><span>Built for movement</span></div>
+      <div class="catcard" onclick="filterCat('Limited')"><div class="ce">✨</div><h3>Limited</h3><span>Serialised drops</span></div>
+    </div>
+  </div></section>
+
+  <!-- BEST SELLERS / SHOP -->
+  <section class="sec" id="shop" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Our Collection</span><h2>Best <em>Sellers</em></h2><p>Engineered for South Asian streets — anti-slip monsoon-tested soles, breathable uppers, true sizing.</p></div></div>
+    <div class="filterbar" id="filterbar">
+      <button class="chip active" data-cat="all" onclick="filterCat('all')">All</button>
+      <button class="chip" data-cat="Low Tops" onclick="filterCat('Low Tops')">Low Tops</button>
+      <button class="chip" data-cat="High Tops" onclick="filterCat('High Tops')">High Tops</button>
+      <button class="chip" data-cat="Mid Tops" onclick="filterCat('Mid Tops')">Mid Tops</button>
+      <button class="chip" data-cat="Runners" onclick="filterCat('Runners')">Runners</button>
+      <button class="chip" data-cat="Limited" onclick="filterCat('Limited')">Limited</button>
+      <div class="spacer"></div>
+      <select class="select" id="priceFilter" onchange="renderProducts()">
+        <option value="all">All Prices</option>
+        <option value="u3">Under ৳3K</option>
+        <option value="3-5">৳3K – ৳5K</option>
+        <option value="o5">৳5K+</option>
+      </select>
+      <select class="select" id="sortBy" onchange="renderProducts()">
+        <option value="pop">Popularity</option>
+        <option value="new">Newest</option>
+        <option value="lh">Price: Low → High</option>
+        <option value="hl">Price: High → Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div></section>
+
+  <!-- WHY SOLEME -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Why SOLÈME</span><h2>Footwear that finally <em>fits Bangladesh</em></h2></div></div>
+    <div class="whygrid">
+      <div class="whycard"><div class="ico">💎</div><h4>Premium Without the Import Tax</h4><p>Genuine leather, EVA soles, metal hardware — priced honestly, without the 3× import markup.</p></div>
+      <div class="whycard"><div class="ico">🌧️</div><h4>Engineered for Our Climate</h4><p>Anti-slip compounds tested on Dhaka streets. Breathable mesh for humidity. Monsoon-ready waterproofing.</p></div>
+      <div class="whycard"><div class="ico">📏</div><h4>Full South Asian Sizing</h4><p>EU 35–47 across all models. Half-sizes on select silhouettes. No more sizing up.</p></div>
+      <div class="whycard"><div class="ico">🎨</div><h4>Local Culture, Global Edge</h4><p>Colourways inspired by rickshaw art, jamdani weaving, and terracotta — unmistakably ours.</p></div>
+    </div>
+  </div></section>
+
+  <!-- LIMITED -->
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="limited">
+      <div class="visual">👟</div>
+      <div>
+        <span class="eyebrow">Limited Series</span>
+        <h2>The <em>Dhaka High</em> Collection</h2>
+        <p>Our most ambitious silhouette yet. Full-grain leather upper with an extended collar engineered for all-day comfort. Inspired by the vertical ambition of Dhaka city — always building, always rising.</p>
+        <p style="color:var(--accent);font-weight:600">Only 200 pairs. Each serialised. Ships with a SOLÈME dust bag and authenticity card.</p>
+        <button class="btn btn-gold" style="margin-top:10px" onclick="openProductByName('DHAKA HIGH')">View Limited Series →</button>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- REVIEWS -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Customer Reviews</span><h2>What our <em>customers</em> say</h2></div></div>
+    <div class="revgrid">
+      <div class="revcard"><div class="stars">★★★★★</div><p>“Finally a Bangladeshi sneaker brand that doesn't feel like a compromise. The NOIR LOW in leather is stunning — Nike fans keep asking where I got them.”</p><div class="who"><div class="avatar">RA</div><div><b>Rafiul Alam</b><span>Dhaka · Gulshan</span></div></div></div>
+      <div class="revcard"><div class="stars">★★★★★</div><p>“bKash payment and delivery in 36 hours to Chittagong — what more can I ask? The sizing is true-to-life unlike international brands.”</p><div class="who"><div class="avatar">FH</div><div><b>Farhana Hossain</b><span>Chittagong · Nasirabad</span></div></div></div>
+      <div class="revcard"><div class="stars">★★★★☆</div><p>“Got the TERRA MID for campus life. The rubber sole actually holds up in monsoon — been wearing them through puddles. Impressed at this price.”</p><div class="who"><div class="avatar">SK</div><div><b>Sabrina Khan</b><span>Sylhet · Zindabazar</span></div></div></div>
+    </div>
+  </div></section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">How It Works</span><h2>Place your <em>order</em></h2></div></div>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><h4>Browse & Select</h4><p>Explore the collection. Pick your model, colourway, and EU size.</p></div>
+      <div class="step"><div class="num">02</div><h4>Add to Cart & Checkout</h4><p>Items go into your persistent cart. Fill in delivery and payment details.</p></div>
+      <div class="step"><div class="num">03</div><h4>Payment</h4><p>bKash, Nagad, Rocket, Upay, or Cash on Delivery across all 64 districts.</p></div>
+      <div class="step"><div class="num">04</div><h4>Delivered</h4><p>Dhaka Metro: 24–48 hours. Nationwide: 3–5 business days.</p></div>
+    </div>
+  </div></section>
+
+  <!-- NEWSLETTER -->
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="news">
+      <span class="eyebrow">Stay Connected</span>
+      <h2>New drops. Early access. <em>Exclusive offers.</em></h2>
+      <p>Subscribe and be the first to know when new silhouettes drop. No spam — only SOLÈME.</p>
+      <form onsubmit="subscribe(event)"><input type="email" placeholder="your@email.com" required><button class="btn btn-gold">Subscribe</button></form>
+    </div>
+  </div></section>
 </div>
 
-<!-- ============ COUPONS ============ -->
-<div class="view" id="v-coupons">
-  <div class="kpi-grid">
-    <div class="kpi"><div class="lab">Active Coupons</div><div class="val">5</div><div class="chg up">2 campaign-based</div></div>
-    <div class="kpi"><div class="lab">Total Redemptions</div><div class="val">1,042</div><div class="chg up">↗ +21%</div></div>
-    <div class="kpi"><div class="lab">Discount Given</div><div class="val">৳68,200</div><div class="chg" style="color:var(--muted)">This month</div></div>
-    <div class="kpi"><div class="lab">Revenue from Coupons</div><div class="val">৳3,12,000</div><div class="chg up">ROI 4.5×</div></div>
-  </div>
-  <div class="card"><div class="card-head"><h3>Discount & Coupon System</h3><button class="btn btn-gold btn-sm" onclick="openCouponModal()">+ Create Coupon</button></div>
-    <table><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Usage / Limit</th><th>Expiry</th><th>Campaign</th><th>Status</th><th></th></tr></thead><tbody id="couponTable"></tbody></table>
-  </div>
-</div>
-<!-- ============ REPORTS ============ -->
-<div class="view" id="v-reports">
-  <div class="card"><div class="card-head"><div><h3>Reports & Export System</h3><div class="sub">Download in PDF, Excel (XLSX) or CSV</div></div></div>
-    <div class="grid-3">
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(231,200,115,.15)">📈</div><div><b style="font-family:var(--display);font-size:16px">Sales Report</b><span>Revenue, orders, units by period</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Sales','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Sales','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Sales','CSV')">CSV</button></div></div>
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(91,141,239,.15)">👥</div><div><b style="font-family:var(--display);font-size:16px">Customer Report</b><span>Acquisition, segments, LTV</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Customer','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Customer','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Customer','CSV')">CSV</button></div></div>
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(31,164,99,.15)">👟</div><div><b style="font-family:var(--display);font-size:16px">Product Report</b><span>Best/worst sellers, stock</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Product','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Product','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Product','CSV')">CSV</button></div></div>
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(139,124,246,.15)">💰</div><div><b style="font-family:var(--display);font-size:16px">Profit & Loss</b><span>Revenue, COGS, expenses, net</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Profit & Loss','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Profit & Loss','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Profit & Loss','CSV')">CSV</button></div></div>
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(232,146,61,.15)">📦</div><div><b style="font-family:var(--display);font-size:16px">Inventory Report</b><span>Stock, valuation, dead stock</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Inventory','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Inventory','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Inventory','CSV')">CSV</button></div></div>
-      <div class="stat-mini" style="flex-direction:column;align-items:flex-start;gap:10px"><div class="si" style="background:rgba(224,83,61,.15)">💸</div><div><b style="font-family:var(--display);font-size:16px">Expense Report</b><span>Categories, budget vs actual</span></div><div style="display:flex;gap:6px"><button class="btn btn-dark btn-sm" onclick="dl('Expense','PDF')">PDF</button><button class="btn btn-dark btn-sm" onclick="dl('Expense','XLSX')">Excel</button><button class="btn btn-dark btn-sm" onclick="dl('Expense','CSV')">CSV</button></div></div>
+<!-- ================= ABOUT VIEW ================= -->
+<div class="view" id="view-about">
+  <div class="page-head"><div class="wrap"><div class="crumb">Home / Our Story</div><h1>The Sole Speaks</h1></div></div>
+  <section class="sec"><div class="wrap" style="max-width:820px">
+    <p style="font-size:20px;font-family:var(--serif);font-style:italic;color:var(--accent);margin-bottom:24px">“SOLÈME was born in Dhaka — where the streets pulse with heat, ambition, and a new generation that refuses to settle.”</p>
+    <p style="color:var(--bone-dim);font-size:16px;margin-bottom:18px">We make premium sneakers that understand your climate, your culture, and your price point. No import markups. No compromises. Every silhouette is engineered for South Asian streets — anti-slip monsoon-tested soles, breathable uppers built for humidity, and sizing that actually fits.</p>
+    <p style="color:var(--bone-dim);font-size:16px">We didn't build SOLÈME to copy global brands. We built it because those brands weren't built for us. Every decision — from sole rubber compound to price point — starts with one question: does this work for Bangladesh?</p>
+    <div class="hero-stats" style="margin-top:40px">
+      <div class="s"><b>2024</b><span>Founded in Dhaka</span></div>
+      <div class="s"><b>64</b><span>Districts Served</span></div>
+      <div class="s"><b>10K+</b><span>Pairs Delivered</span></div>
+      <div class="s"><b>4.8★</b><span>Avg. Rating</span></div>
     </div>
-    <div style="margin-top:18px;padding:16px;border:1px dashed var(--line);border-radius:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-      <b>Custom range:</b>
-      <input class="field" style="max-width:160px;margin:0" type="date">
-      <span style="color:var(--muted)">to</span>
-      <input class="field" style="max-width:160px;margin:0" type="date">
-      <button class="btn btn-gold btn-sm" onclick="toast('Generating custom report…')">Generate Report</button>
-    </div>
-  </div>
+  </div></section>
 </div>
 
-<!-- ============ ROLES ============ -->
-<div class="view" id="v-roles">
-  <div class="grid-3">
-    <div class="card"><div class="si" style="width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-size:22px;background:rgba(231,200,115,.15);margin-bottom:12px">👑</div><h3 style="font-family:var(--display);font-size:18px">Super Admin</h3><p style="color:var(--muted);font-size:13px;margin:6px 0 12px">Full control over everything</p><span class="pill gold">1 user</span></div>
-    <div class="card"><div class="si" style="width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-size:22px;background:rgba(91,141,239,.15);margin-bottom:12px">🛡️</div><h3 style="font-family:var(--display);font-size:18px">Admin</h3><p style="color:var(--muted);font-size:13px;margin:6px 0 12px">Limited control — no billing/roles</p><span class="pill blue">3 users</span></div>
-    <div class="card"><div class="si" style="width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-size:22px;background:rgba(139,124,246,.15);margin-bottom:12px">👤</div><h3 style="font-family:var(--display);font-size:18px">Moderator</h3><p style="color:var(--muted);font-size:13px;margin:6px 0 12px">Restricted — orders & support only</p><span class="pill purple">5 users</span></div>
-  </div>
-  <div class="card"><div class="card-head"><h3>Permission Matrix</h3><button class="btn btn-gold btn-sm" onclick="toast('Invite team member')">+ Invite Member</button></div>
-    <table class="perm-table"><thead><tr><th>Permission</th><th>Super Admin</th><th>Admin</th><th>Moderator</th></tr></thead><tbody>
-      <tr><td>Product control</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
-      <tr><td>Order management</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-      <tr><td>Customer access</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-      <tr><td>Report viewing</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
-      <tr><td>Analytics access</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td></tr>
-      <tr><td>Expense & finance</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td></tr>
-      <tr><td>Manage roles & billing</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td></tr>
-    </tbody></table>
-  </div>
-  <div class="card"><div class="card-head"><h3>Team Members</h3></div>
-    <table><thead><tr><th>Member</th><th>Role</th><th>Last Active</th><th>Status</th></tr></thead><tbody>
-      <tr><td><div class="tprod"><div class="te" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--ink);font-weight:700;font-size:13px">SH</div><div><b>Sabbir Hossain</b><span>officialsabbir11@gmail.com</span></div></div></td><td><span class="pill gold">Super Admin</span></td><td>Now</td><td><span class="pill green">Active</span></td></tr>
-      <tr><td><div class="tprod"><div class="te">👤</div><div><b>Tanvir Ahmed</b><span>tanvir@soleme.com</span></div></div></td><td><span class="pill blue">Admin</span></td><td>2h ago</td><td><span class="pill green">Active</span></td></tr>
-      <tr><td><div class="tprod"><div class="te">👤</div><div><b>Nusrat Jahan</b><span>nusrat@soleme.com</span></div></div></td><td><span class="pill purple">Moderator</span></td><td>1d ago</td><td><span class="pill green">Active</span></td></tr>
-    </tbody></table>
-  </div>
+<!-- ================= CONTACT VIEW ================= -->
+<div class="view" id="view-contact">
+  <div class="page-head"><div class="wrap"><div class="crumb">Home / Contact</div><h1>Get in Touch</h1></div></div>
+  <section class="sec"><div class="wrap"><div class="checkout-grid">
+    <div class="panel">
+      <h3 style="font-family:var(--display);font-size:22px;margin-bottom:18px">Send us a message</h3>
+      <form onsubmit="contactSubmit(event)">
+        <div class="field"><label>Full Name *</label><input required placeholder="Your name"></div>
+        <div class="field"><label>Mobile *</label><input required placeholder="01XXXXXXXXX"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="field"><label>Message *</label><textarea rows="5" required placeholder="How can we help?"></textarea></div>
+        <button class="btn btn-gold btn-block">Send Message →</button>
+      </form>
+    </div>
+    <div>
+      <div class="panel" style="margin-bottom:18px"><h4 style="font-family:var(--display);margin-bottom:14px">Quick Support</h4>
+        <p style="color:var(--bone-dim);font-size:14px;margin-bottom:8px">💬 WhatsApp: +880 1XXX-XXXXXX</p>
+        <p style="color:var(--bone-dim);font-size:14px;margin-bottom:8px">✉️ hello@thesolespeaks.com</p>
+        <p style="color:var(--bone-dim);font-size:14px;margin-bottom:8px">🕒 Daily 9:00 AM – 9:00 PM</p>
+        <p style="color:var(--bone-dim);font-size:14px">📍 Gulshan, Dhaka, Bangladesh</p>
+        <a href="#" class="btn btn-block" style="background:#25D366;color:#fff;margin-top:16px" onclick="toast('Opening WhatsApp…');return false">💬 Chat on WhatsApp</a>
+      </div>
+      <div class="panel"><h4 style="font-family:var(--display);margin-bottom:14px">Follow Us</h4>
+        <div class="sugg"><a href="https://www.facebook.com/solemebd" target="_blank" rel="noopener">Facebook</a><a href="#">Instagram</a><a href="#">TikTok</a></div>
+      </div>
+    </div>
+  </div></div></section>
 </div>
 
-<!-- ============ NOTIFICATIONS ============ -->
-<div class="view" id="v-notifications">
-  <div class="card"><div class="card-head"><h3>Notification Center</h3><button class="btn btn-dark btn-sm" onclick="toast('All marked as read')">Mark all read</button></div>
-    <div class="alert-item"><div class="ai" style="background:rgba(31,164,99,.15)">📦</div><div><b>New order received — #SOL-100482</b><p>Rafiul Alam · NOIR LOW ×1 · ৳2,499 · bKash</p></div><span class="t">2 min ago</span></div>
-    <div class="alert-item"><div class="ai" style="background:rgba(231,200,115,.15)">⚠️</div><div><b>Low stock alert — DHAKA HIGH</b><p>Only 18 units remaining (below reorder level of 25)</p></div><span class="t">28 min ago</span></div>
-    <div class="alert-item"><div class="ai" style="background:rgba(91,141,239,.15)">👤</div><div><b>New customer registered</b><p>Farhana Hossain · Chittagong · via email signup</p></div><span class="t">1h ago</span></div>
-    <div class="alert-item"><div class="ai" style="background:rgba(224,83,61,.15)">❌</div><div><b>Order cancelled — #SOL-100460</b><p>Customer requested cancellation · refund initiated</p></div><span class="t">3h ago</span></div>
-    <div class="alert-item"><div class="ai" style="background:rgba(31,164,99,.15)">💰</div><div><b>Payout settled</b><p>bKash merchant payout ৳68,400 credited</p></div><span class="t">5h ago</span></div>
-  </div>
-  <div class="grid-2b">
-    <div class="card"><div class="card-head"><h3>Notification Preferences</h3></div>
-      <div class="hbar" style="grid-template-columns:1fr auto"><span>📦 Order notifications</span><span class="pill green">On</span></div>
-      <div class="hbar" style="grid-template-columns:1fr auto"><span>⚠️ Stock alert notifications</span><span class="pill green">On</span></div>
-      <div class="hbar" style="grid-template-columns:1fr auto"><span>👤 New customer alerts</span><span class="pill green">On</span></div>
-      <div class="hbar" style="grid-template-columns:1fr auto"><span>🔔 Admin panel alerts</span><span class="pill green">On</span></div>
-      <div class="hbar" style="grid-template-columns:1fr auto"><span>📱 Push notifications (future)</span><span class="pill gray">Ready</span></div>
+<!-- ================= ACCOUNT VIEW ================= -->
+<div class="view" id="view-account">
+  <div class="page-head"><div class="wrap"><div class="crumb">Home / My Account</div><h1>My Account</h1></div></div>
+  <section class="sec"><div class="wrap">
+    <!-- logged out -->
+    <div id="acctAuth">
+      <div class="checkout-grid">
+        <div class="panel"><h3 style="font-family:var(--display);font-size:22px;margin-bottom:18px">Sign In</h3>
+          <form onsubmit="login(event)">
+            <div class="field"><label>Email or Mobile *</label><input required placeholder="you@email.com"></div>
+            <div class="field"><label>Password *</label><input type="password" required placeholder="••••••••"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><label style="font-size:13px;color:var(--bone-dim);text-transform:none;letter-spacing:0"><input type="checkbox" style="width:auto;margin-right:6px">Remember me</label><a href="#" style="font-size:13px;color:var(--accent)" onclick="toast('Reset link sent to your email');return false">Forgot password?</a></div>
+            <button class="btn btn-gold btn-block">Sign In →</button>
+          </form>
+        </div>
+        <div class="panel"><h3 style="font-family:var(--display);font-size:22px;margin-bottom:18px">Create Account</h3>
+          <form onsubmit="login(event)">
+            <div class="field"><label>Full Name *</label><input required placeholder="Your name"></div>
+            <div class="field"><label>Email *</label><input type="email" required placeholder="you@email.com"></div>
+            <div class="field"><label>Mobile *</label><input required placeholder="01XXXXXXXXX"></div>
+            <div class="field"><label>Password *</label><input type="password" required placeholder="Create a password"></div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:14px">🔒 OTP / email verification sent on signup (optional).</p>
+            <button class="btn btn-primary btn-block">Register →</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="card"><div class="card-head"><h3>System Status</h3></div>
-      <div class="stat-mini" style="margin-bottom:10px"><div class="si" style="background:rgba(31,164,99,.15)">🟢</div><div><b>All systems operational</b><span>Storefront, payments, courier API</span></div></div>
-      <div class="stat-mini"><div class="si" style="background:rgba(91,141,239,.15)">🔒</div><div><b>JWT auth · RBAC active</b><span>HTTPS · PostgreSQL · Next.js API</span></div></div>
+    <!-- logged in dashboard -->
+    <div id="acctDash" style="display:none">
+      <div class="acct-tabs">
+        <button class="chip active" onclick="acctTab('profile',this)">Profile</button>
+        <button class="chip" onclick="acctTab('orders',this)">Order Tracking</button>
+        <button class="chip" onclick="acctTab('address',this)">Address Book</button>
+        <button class="chip" onclick="acctTab('activity',this)">Activity</button>
+        <button class="chip" onclick="logout()">Log Out</button>
+      </div>
+      <div id="acct-profile" class="acct-pane">
+        <div class="panel" style="max-width:560px"><h3 style="font-family:var(--display);font-size:20px;margin-bottom:18px">Profile Dashboard</h3>
+          <div class="field"><label>Full Name</label><input value="Sabbir Hossain"></div>
+          <div class="field"><label>Email</label><input value="officialsabbir11@gmail.com"></div>
+          <div class="field"><label>Mobile</label><input value="01712-345678"></div>
+          <button class="btn btn-gold" onclick="toast('Profile updated')">Save Changes</button>
+        </div>
+      </div>
+      <div id="acct-orders" class="acct-pane" style="display:none">
+        <div class="panel">
+          <h3 style="font-family:var(--display);font-size:20px;margin-bottom:20px">Order #SOL-100482</h3>
+          <div class="tracking">
+            <div class="track-step done"><div class="tdot">✓</div><div><h5>Order Confirmed</h5><p>8 Jun, 10:24 AM · Confirmed via WhatsApp</p></div></div>
+            <div class="track-step done"><div class="tdot">✓</div><div><h5>Processing</h5><p>8 Jun, 02:10 PM · Packed at Dhaka warehouse</p></div></div>
+            <div class="track-step active"><div class="tdot">🚚</div><div><h5>Shipped</h5><p>9 Jun · With Pathao courier · ETA 24h</p></div></div>
+            <div class="track-step"><div class="tdot">🏠</div><div><h5>Out for Delivery</h5><p>Pending</p></div></div>
+            <div class="track-step"><div class="tdot">📦</div><div><h5>Delivered</h5><p>Pending</p></div></div>
+          </div>
+        </div>
+        <h4 style="font-family:var(--display);margin:24px 0 14px">Order History</h4>
+        <div class="order-row"><div class="oe">👟</div><div style="flex:1"><b>NOIR LOW — Black/EU 42</b><div style="font-size:12px;color:var(--muted)">#SOL-100482 · 9 Jun 2026 · ৳2,499</div></div><span class="status-pill shipped">Shipped</span></div>
+        <div class="order-row"><div class="oe">🥾</div><div style="flex:1"><b>DHAKA HIGH — Tan/EU 42</b><div style="font-size:12px;color:var(--muted)">#SOL-100455 · 2 Jun 2026 · ৳6,499</div></div><span class="status-pill delivered">Delivered</span></div>
+        <div class="order-row"><div class="oe">🏃</div><div style="flex:1"><b>TERRA MID — Olive/EU 41</b><div style="font-size:12px;color:var(--muted)">#SOL-100390 · 21 May 2026 · ৳3,299</div></div><span class="status-pill delivered">Delivered</span></div>
+      </div>
+      <div id="acct-address" class="acct-pane" style="display:none">
+        <div class="panel" style="max-width:560px"><h3 style="font-family:var(--display);font-size:20px;margin-bottom:18px">Address Book</h3>
+          <div style="border:1px solid var(--accent);border-radius:12px;padding:16px;margin-bottom:14px"><b>Home · Default</b><p style="color:var(--bone-dim);font-size:14px;margin-top:4px">House 14, Road 7, Gulshan-1, Dhaka 1212</p></div>
+          <div style="border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px"><b>Office</b><p style="color:var(--bone-dim);font-size:14px;margin-top:4px">Level 8, Bashundhara City, Panthapath, Dhaka</p></div>
+          <button class="btn btn-dark" onclick="toast('Add address form')">+ Add New Address</button>
+        </div>
+      </div>
+      <div id="acct-activity" class="acct-pane" style="display:none">
+        <div class="panel" style="max-width:560px"><h3 style="font-family:var(--display);font-size:20px;margin-bottom:18px">Account Activity</h3>
+          <p style="color:var(--bone-dim);font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)">🔑 Logged in · Dhaka, BD · Today 6:18 PM</p>
+          <p style="color:var(--bone-dim);font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)">💳 Order #SOL-100482 placed · 9 Jun</p>
+          <p style="color:var(--bone-dim);font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)">❤️ Added DHAKA HIGH to wishlist · 7 Jun</p>
+          <p style="color:var(--bone-dim);font-size:14px;padding:8px 0">🔒 Password changed · 1 Jun</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </div></section>
 </div>
-  </div><!-- /content -->
-</div><!-- /main -->
-</div><!-- /layout -->
 
-<!-- MODALS -->
-<div class="overlay" id="overlay" onclick="closeModals()"></div>
+<!-- ================= CHECKOUT VIEW ================= -->
+<div class="view" id="view-checkout">
+  <div class="page-head"><div class="wrap"><div class="crumb">Home / Cart / Checkout</div><h1>Checkout</h1></div></div>
+  <section class="sec"><div class="wrap"><div class="checkout-grid">
+    <div class="panel">
+      <h3 style="font-family:var(--display);font-size:20px;margin-bottom:18px">Delivery Details</h3>
+      <form id="checkoutForm" onsubmit="placeOrder(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="field"><label>Full Name *</label><input required></div>
+          <div class="field"><label>Mobile *</label><input required placeholder="01XXXXXXXXX"></div>
+        </div>
+        <div class="field"><label>Email Address</label><input type="email"></div>
+        <div class="field"><label>Delivery Address *</label><textarea rows="2" required></textarea></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="field"><label>District *</label><select required><option value="">Select district</option><option>Dhaka</option><option>Chittagong</option><option>Sylhet</option><option>Rajshahi</option><option>Khulna</option><option>Barishal</option><option>Rangpur</option><option>Mymensingh</option><option>Comilla</option><option>Narayanganj</option><option>Gazipur</option><option>Other</option></select></div>
+          <div class="field"><label>Postal Code</label><input></div>
+        </div>
+        <div class="field"><label>Payment Method *</label>
+          <div class="pay-grid">
+            <div class="pay-opt active" onclick="selPay(this,'bKash')"><span class="e">💚</span>bKash</div>
+            <div class="pay-opt" onclick="selPay(this,'Nagad')"><span class="e">🔵</span>Nagad</div>
+            <div class="pay-opt" onclick="selPay(this,'Rocket')"><span class="e">🔴</span>Rocket</div>
+            <div class="pay-opt" onclick="selPay(this,'COD')"><span class="e">💵</span>Cash on Delivery</div>
+            <div class="pay-opt" onclick="selPay(this,'Card')"><span class="e">💳</span>Card</div>
+            <div class="pay-opt" onclick="selPay(this,'Upay')"><span class="e">⚡</span>Upay</div>
+          </div>
+        </div>
+        <div class="field"><label>Order Notes (optional)</label><textarea rows="2"></textarea></div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">🔒 Your data is used only for order fulfilment and never shared. We confirm every order via WhatsApp within 2 hours.</p>
+        <button class="btn btn-gold btn-block">Confirm Order →</button>
+      </form>
+    </div>
+    <div>
+      <div class="panel">
+        <h3 style="font-family:var(--display);font-size:20px;margin-bottom:16px">Order Summary</h3>
+        <div id="checkoutItems"></div>
+        <div class="coupon-row"><input id="checkoutCoupon" placeholder="Discount code"><button class="btn btn-dark btn-sm" onclick="applyCoupon('checkoutCoupon')">Apply</button></div>
+        <div id="checkoutSummary"></div>
+      </div>
+      <div class="panel" style="margin-top:16px"><p style="font-size:13px;color:var(--bone-dim)">🚚 <b>Shipping:</b> Free in Dhaka over ৳3,000. Otherwise ৳60 (Dhaka) / ৳120 (outside).</p></div>
+    </div>
+  </div></div></section>
+</div>
 
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:16px"><img src="assets/soleme-logo-full.jpg" alt="SOLÈME — The sole speaks" style="height:92px;width:auto;border-radius:12px;display:block"></div>
+        <p class="about">Premium sneakers built for the streets of Bangladesh. The sole speaks — and so do you. Born in Dhaka, Est. 2024.</p>
+        <div class="pay-icons"><span>💚 bKash</span><span>🔵 Nagad</span><span>🔴 Rocket</span><span>⚡ Upay</span><span>💵 COD</span><span>💳 Card</span></div>
+      </div>
+      <div><h5>Shop</h5><a href="#" onclick="filterCat('Low Tops');return false">Low Tops</a><a href="#" onclick="filterCat('High Tops');return false">High Tops</a><a href="#" onclick="filterCat('Runners');return false">Runners</a><a href="#" onclick="filterCat('Limited');return false">Limited Series</a></div>
+      <div><h5>Company</h5><a href="#" onclick="go('about');return false">Our Story</a><a href="#" onclick="go('contact');return false">Contact</a><a href="#">Size Guide</a><a href="#">Track Order</a></div>
+      <div><h5>Support</h5><a href="#">Shipping & Delivery</a><a href="#">Returns & Exchange</a><a href="#">FAQ</a><a href="https://www.facebook.com/solemebd" target="_blank" rel="noopener">Facebook Page</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 SOLÈME · The Sole Speaks. All rights reserved.</span><span>Made in Dhaka, Bangladesh 🇭🇩</span></div>
+  </div>
+</footer>
+
+<!-- ===== DRAWERS / MODALS / OVERLAYS ===== -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- CART DRAWER -->
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head"><h3>Your Cart</h3><button class="icon-btn" onclick="closeAll()">✕</button></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- WISHLIST DRAWER -->
+<aside class="drawer" id="wishDrawer">
+  <div class="drawer-head"><h3>Wishlist</h3><button class="icon-btn" onclick="closeAll()">✕</button></div>
+  <div class="drawer-body" id="wishBody"></div>
+</aside>
+
+<!-- PRODUCT MODAL -->
 <div class="modal" id="productModal">
-  <div class="modal-head"><h3>Add / Edit Product</h3><button class="btn-icon" onclick="closeModals()">✕</button></div>
-  <div class="modal-body">
-    <div class="field"><label>Product Name</label><input placeholder="e.g. NOIR LOW"></div>
-    <div class="row-2"><div class="field"><label>SKU</label><input placeholder="SOL-NL-01"></div><div class="field"><label>Category</label><select><option>Low Tops</option><option>High Tops</option><option>Mid Tops</option><option>Runners</option><option>Limited</option></select></div></div>
-    <div class="row-3"><div class="field"><label>Selling Price (৳)</label><input type="number" placeholder="2499"></div><div class="field"><label>Cost Price (৳)</label><input type="number" placeholder="1400"></div><div class="field"><label>Stock Qty</label><input type="number" placeholder="120"></div></div>
-    <div class="field"><label>Colours (variants)</label><div class="tag-input"><span class="tg">Black ✕</span><span class="tg">Bone ✕</span><span class="tg">Olive ✕</span><input style="border:none;background:none;flex:1;min-width:80px;color:var(--bone)" placeholder="Add colour…"></div></div>
-    <div class="field"><label>Sizes (EU)</label><div class="tag-input"><span class="tg">39 ✕</span><span class="tg">40 ✕</span><span class="tg">41 ✕</span><span class="tg">42 ✕</span><span class="tg">43 ✕</span><span class="tg">44 ✕</span></div></div>
-    <div class="field"><label>Product Tags / Labels</label><select><option>None</option><option>New</option><option>Hot</option><option>Sale</option><option>Trending</option></select></div>
-    <div class="field"><label>Description</label><textarea rows="3" placeholder="Product description…"></textarea></div>
-    <div class="field"><label>Product Images (Gallery)</label><div style="border:1px dashed var(--line);border-radius:11px;padding:24px;text-align:center;color:var(--muted);cursor:pointer" onclick="toast('Image upload dialog')">📷 Drag images here or click to upload</div></div>
-    <div class="row-2"><div class="field"><label>SEO Meta Title</label><input placeholder="Premium sneaker…"></div><div class="field"><label>Visibility</label><select><option>Active</option><option>Draft</option></select></div></div>
-    <label style="font-size:13px;color:var(--bone-dim);display:flex;align-items:center;gap:8px"><input type="checkbox"> Mark as featured product (show on homepage)</label>
-  </div>
-  <div class="modal-foot"><button class="btn btn-dark" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="closeModals();toast('Product saved successfully')">Save Product</button></div>
+  <div class="modal-card"><div class="modal-grid" id="modalContent"></div></div>
 </div>
 
-<div class="modal" id="expenseModal">
-  <div class="modal-head"><h3>Add Expense</h3><button class="btn-icon" onclick="closeModals()">✕</button></div>
-  <div class="modal-body">
-    <div class="field"><label>Category</label><select><option>Marketing / Ads</option><option>Delivery / Logistics</option><option>Office / Operations</option><option>Staff / Salary</option><option>Miscellaneous</option></select></div>
-    <div class="field"><label>Description</label><input placeholder="e.g. Facebook ad campaign"></div>
-    <div class="row-2"><div class="field"><label>Amount (৳)</label><input type="number" placeholder="5000"></div><div class="field"><label>Date</label><input type="date"></div></div>
+<!-- SEARCH MODAL -->
+<div class="search-modal" id="searchModal">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="searchInput" placeholder="Search sneakers, colours, categories…" oninput="doSearch(this.value)">
+      <button class="icon-btn" onclick="closeSearch()">✕</button>
+    </div>
+    <div id="searchDefault">
+      <div class="search-section"><div class="h">Trending Searches</div><div class="sugg" id="trendSugg"></div></div>
+      <div class="search-section"><div class="h">Recent Searches</div><div class="sugg" id="recentSugg"></div></div>
+      <div class="search-section"><div class="h">Categories</div><div class="sugg"><a onclick="closeSearch();filterCat('Low Tops')">Low Tops</a><a onclick="closeSearch();filterCat('High Tops')">High Tops</a><a onclick="closeSearch();filterCat('Runners')">Runners</a><a onclick="closeSearch();filterCat('Limited')">Limited</a></div></div>
+    </div>
+    <div class="search-results" id="searchResults" style="display:none"></div>
   </div>
-  <div class="modal-foot"><button class="btn btn-dark" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="closeModals();toast('Expense recorded')">Save Expense</button></div>
 </div>
 
-<div class="modal" id="couponModal">
-  <div class="modal-head"><h3>Create Coupon</h3><button class="btn-icon" onclick="closeModals()">✕</button></div>
-  <div class="modal-body">
-    <div class="row-2"><div class="field"><label>Coupon Code</label><input placeholder="SOLEME10"></div><div class="field"><label>Discount Type</label><select><option>Percentage (%)</option><option>Fixed (৳)</option></select></div></div>
-    <div class="row-3"><div class="field"><label>Value</label><input type="number" placeholder="10"></div><div class="field"><label>Usage Limit</label><input type="number" placeholder="500"></div><div class="field"><label>Expiry Date</label><input type="date"></div></div>
-    <div class="field"><label>Campaign Name (optional)</label><input placeholder="Season 01 Launch"></div>
+<!-- COMPARE BAR -->
+<div class="compare-bar" id="compareBar">
+  <div class="wrap inner">
+    <strong style="font-family:var(--display)">Compare</strong>
+    <div class="items" id="compareItems"></div>
+    <button class="btn btn-gold btn-sm" onclick="showCompare()">Compare Now</button>
+    <button class="btn btn-dark btn-sm" onclick="clearCompare()">Clear</button>
   </div>
-  <div class="modal-foot"><button class="btn btn-dark" onclick="closeModals()">Cancel</button><button class="btn btn-gold" onclick="closeModals();toast('Coupon created')">Create Coupon</button></div>
 </div>
 
 <div class="toast-wrap" id="toastWrap"></div>
+<script>
+/* ============ PRODUCT DATA ============ */
+const PRODUCTS=[
+ {id:1,name:'NOIR LOW',cat:'Low Tops',price:2499,was:2999,emoji:'👟',rating:4.9,reviews:128,labels:['new','sale'],pop:98,stock:'in',sku:'SOL-NL-01',colors:[{n:'Black',c:'#111'},{n:'Bone',c:'#e8e3d6'},{n:'Olive',c:'#5a5e3a'}],sizes:[39,40,41,42,43,44],desc:'Our flagship low-top. Genuine leather upper, anti-slip EVA sole tested on Dhaka streets, and a minimalist silhouette that pairs with everything.',gallery:['👟','👟','👟']},
+ {id:2,name:'DHAKA HIGH',cat:'Limited',price:6499,was:0,emoji:'🥾',rating:5.0,reviews:64,labels:['hot','trend'],pop:95,stock:'low',sku:'SOL-DH-01',colors:[{n:'Tan',c:'#b6814f'},{n:'Black',c:'#111'}],sizes:[40,41,42,43,44,45],desc:'Limited series — only 200 serialised pairs. Full-grain leather, extended collar, premium packaging with dust bag and authenticity card.',gallery:['🥾','🥾','🥾']},
+ {id:3,name:'TERRA MID',cat:'Mid Tops',price:3299,was:3799,emoji:'🍾',rating:4.7,reviews:91,labels:['sale','trend'],pop:88,stock:'in',sku:'SOL-TM-01',colors:[{n:'Olive',c:'#5a5e3a'},{n:'Sand',c:'#cdb892'},{n:'Grey',c:'#6b6b6b'}],sizes:[39,40,41,42,43,44],desc:'Monsoon-ready mid-top with waterproofed suede and a grippy rubber outsole. Built for campus life and city rain.',gallery:['🍾','🍾','🍾']},
+ {id:4,name:'PULSE RUNNER',cat:'Runners',price:2899,was:0,emoji:'👟',rating:4.6,reviews:73,labels:['new'],pop:82,stock:'in',sku:'SOL-PR-01',colors:[{n:'Volt',c:'#c6f04a'},{n:'Black',c:'#111'},{n:'White',c:'#f4f1ea'}],sizes:[38,39,40,41,42,43,44],desc:'Lightweight breathable mesh runner with energy-return foam. Engineered for movement in humidity.',gallery:['👟','👟','👟']},
+ {id:5,name:'JAMDANI LOW',cat:'Low Tops',price:3499,was:3999,emoji:'👟',rating:4.8,reviews:56,labels:['trend','sale'],pop:79,stock:'in',sku:'SOL-JL-01',colors:[{n:'Ivory',c:'#efe9d8'},{n:'Indigo',c:'#34406b'}],sizes:[39,40,41,42,43],desc:'Colourway inspired by jamdani weaving. Hand-finished detailing on a premium leather low-top.',gallery:['👟','👟','👟']},
+ {id:6,name:'RICKSHAW HIGH',cat:'High Tops',price:5299,was:5999,emoji:'🥾',rating:4.9,reviews:47,labels:['hot','sale'],pop:90,stock:'low',sku:'SOL-RH-01',colors:[{n:'Red',c:'#b8362b'},{n:'Black',c:'#111'},{n:'Teal',c:'#2c6e6a'}],sizes:[40,41,42,43,44,45],desc:'Bold high-top with colourways drawn from Dhaka rickshaw art. A statement piece with ankle support.',gallery:['🥾','🥾','🥾']},
+ {id:7,name:'METRO RUNNER',cat:'Runners',price:2299,was:2699,emoji:'🏃',rating:4.5,reviews:112,labels:['sale'],pop:85,stock:'in',sku:'SOL-MR-01',colors:[{n:'Grey',c:'#6b6b6b'},{n:'Navy',c:'#283655'}],sizes:[38,39,40,41,42,43,44],desc:'Daily commuter runner. Cushioned ride, durable outsole, and a clean profile under ৳3K.',gallery:['🏃','🏃','🏃']},
+ {id:8,name:'TERRACOTTA MID',cat:'Mid Tops',price:3899,was:0,emoji:'🍾',rating:4.7,reviews:38,labels:['new','trend'],pop:76,stock:'in',sku:'SOL-TC-01',colors:[{n:'Clay',c:'#a8593c'},{n:'Stone',c:'#9b948a'}],sizes:[39,40,41,42,43,44],desc:'Earth-tone mid inspired by terracotta pottery. Warm leather tones with a rugged sole.',gallery:['🍾','🍾','🍾']},
+ {id:9,name:'NOIR LOW · OG',cat:'Low Tops',price:2699,was:0,emoji:'👟',rating:4.8,reviews:64,labels:[],pop:70,stock:'in',sku:'SOL-NLO-01',colors:[{n:'White',c:'#f4f1ea'},{n:'Black',c:'#111'}],sizes:[39,40,41,42,43,44],desc:'The original NOIR LOW in classic two-tone. A timeless everyday staple.',gallery:['👟','👟','👟']},
+ {id:10,name:'PADMA HIGH',cat:'High Tops',price:5799,was:6499,emoji:'🥾',rating:4.9,reviews:29,labels:['hot','sale'],pop:81,stock:'low',sku:'SOL-PH-01',colors:[{n:'River Blue',c:'#3a6ea5'},{n:'Black',c:'#111'}],sizes:[40,41,42,43,44],desc:'Premium high-top named for the Padma. Water-resistant upper and a sculpted collar.',gallery:['🥾','🥾','🥾']},
+ {id:11,name:'VELOX RUNNER',cat:'Runners',price:3199,was:3599,emoji:'🏃',rating:4.6,reviews:54,labels:['sale','trend'],pop:74,stock:'out',sku:'SOL-VR-01',colors:[{n:'Black/Volt',c:'#1a1a1a'},{n:'Grey',c:'#6b6b6b'}],sizes:[39,40,41,42,43],desc:'Performance runner with carbon-look plate and breathable knit. Currently restocking.',gallery:['🏃','🏃','🏃']},
+ {id:12,name:'SERIAL ONE',cat:'Limited',price:8999,was:0,emoji:'✨',rating:5.0,reviews:18,labels:['hot','new'],pop:99,stock:'low',sku:'SOL-S1-01',colors:[{n:'Obsidian',c:'#0c0c0c'},{n:'Gold',c:'#caa84a'}],sizes:[41,42,43,44],desc:'The crown jewel. 100 numbered pairs, gold hardware, premium box set. The pinnacle of SOLÈME craft.',gallery:['✨','✨','✨']}
+];
+
+/* ============ STATE ============ */
+let cart=JSON.parse(localStorage.getItem('soleme_cart')||'[]');
+let wish=JSON.parse(localStorage.getItem('soleme_wish')||'[]');
+let recent=JSON.parse(localStorage.getItem('soleme_recent')||'[]');
+let recentSearch=JSON.parse(localStorage.getItem('soleme_rsearch')||'[]');
+let compare=[];
+let curCat='all', curProduct=null, curColor=0, curSize=null, curImg=0, payMethod='bKash', discount=0;
+const BDT=n=>'৳'+n.toLocaleString('en-IN');
+const save=()=>{localStorage.setItem('soleme_cart',JSON.stringify(cart));localStorage.setItem('soleme_wish',JSON.stringify(wish));localStorage.setItem('soleme_recent',JSON.stringify(recent));localStorage.setItem('soleme_rsearch',JSON.stringify(recentSearch));};
+
+/* ============ NAV / VIEWS ============ */
+function go(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');window.scrollTo({top:0});closeAll();if(v==='checkout')renderCheckout();}
+function scrollToId(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+function filterCat(c){go('home');curCat=c;document.querySelectorAll('#filterbar .chip').forEach(ch=>ch.classList.toggle('active',ch.dataset.cat===c||(c!=='all'&&false)));let found=false;document.querySelectorAll('#filterbar .chip').forEach(ch=>{if(ch.dataset.cat===c){ch.classList.add('active');found=true;}else ch.classList.remove('active');});if(!found)document.querySelector('#filterbar .chip[data-cat="all"]').classList.add('active');renderProducts();setTimeout(()=>scrollToId('shop'),60);}
+
+/* ============ RENDER PRODUCTS ============ */
+function productLabels(p){return p.labels.map(l=>{const m={new:'New',hot:'Hot',sale:'Sale',trend:'Trending'};return `<span class="plabel ${l==='trend'?'trend':l}">${m[l]}</span>`}).join('');}
+function stockBar(p){const m={in:['in','In Stock'],low:['low','Low Stock'],out:['out','Out of Stock']};const[c,t]=m[p.stock];return `<div class="stockbar"><span class="dot ${c}"></span>${t}</div>`;}
+function renderProducts(){
+  let list=PRODUCTS.filter(p=>curCat==='all'||p.cat===curCat);
+  const pf=document.getElementById('priceFilter').value;
+  if(pf==='u3')list=list.filter(p=>p.price<3000);else if(pf==='3-5')list=list.filter(p=>p.price>=3000&&p.price<=5000);else if(pf==='o5')list=list.filter(p=>p.price>5000);
+  const sb=document.getElementById('sortBy').value;
+  if(sb==='lh')list.sort((a,b)=>a.price-b.price);else if(sb==='hl')list.sort((a,b)=>b.price-a.price);else if(sb==='rating')list.sort((a,b)=>b.rating-a.rating);else if(sb==='new')list.sort((a,b)=>(b.labels.includes('new')?1:0)-(a.labels.includes('new')?1:0));else list.sort((a,b)=>b.pop-a.pop);
+  const g=document.getElementById('pgrid');
+  if(!list.length){g.innerHTML='<div class="no-result" style="grid-column:1/-1">No products match your filters.</div>';return;}
+  g.innerHTML=list.map(p=>`
+    <div class="pcard">
+      <div class="thumb" onclick="openProduct(${p.id})">
+        <div class="plabels">${productLabels(p)}</div>
+        <button class="pwish ${wish.includes(p.id)?'on':''}" onclick="event.stopPropagation();toggleWish(${p.id},this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3.2 1.2 4 2.4C10.8 6.2 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg></button>
+        <div class="emoji">${p.emoji}</div>
+        ${stockBar(p)}
+      </div>
+      <div class="body">
+        <div class="cat">${p.cat}</div>
+        <div class="name">${p.name}</div>
+        <div class="rating">★ ${p.rating} <span>(${p.reviews})</span></div>
+        <div class="priceRow"><span class="price">${BDT(p.price)}</span>${p.was?`<span class="was">${BDT(p.was)}</span>`:''}</div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" onclick="openProduct(${p.id})">${p.stock==='out'?'Notify Me':'Add to Cart'}</button>
+          <button class="btn btn-dark btn-sm pcompare" onclick="addCompare(${p.id})" title="Compare">⇆</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* ============ PRODUCT MODAL ============ */
+function openProduct(id){const p=PRODUCTS.find(x=>x.id===id);curProduct=p;curColor=0;curSize=null;curImg=0;
+  if(!recent.includes(id)){recent.unshift(id);recent=recent.slice(0,6);save();}
+  renderModal();document.getElementById('productModal').classList.add('open');document.getElementById('overlay').classList.add('open');
+}
+function openProductByName(n){const p=PRODUCTS.find(x=>x.name===n);if(p)openProduct(p.id);}
+function renderModal(){const p=curProduct;const off=p.was?Math.round((1-p.price/p.was)*100):0;
+  const related=PRODUCTS.filter(x=>x.cat===p.cat&&x.id!==p.id).slice(0,3);
+  document.getElementById('modalContent').innerHTML=`
+    <div class="modal-gallery">
+      <div class="modal-main-img" id="mainImg" onclick="this.classList.toggle('zoom')">${p.gallery[curImg]}</div>
+      <div class="modal-thumbs">${p.gallery.map((g,i)=>`<div class="t ${i===curImg?'active':''}" onclick="setImg(${i})">${g}</div>`).join('')}</div>
+    </div>
+    <div class="modal-info">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div class="cat">${p.cat} · ${p.sku}</div><button class="icon-btn" onclick="closeAll()">✕</button></div>
+      <h2>${p.name}</h2>
+      <div class="rating" style="color:var(--accent);font-size:13px">★ ${p.rating} <span style="color:var(--muted)">(${p.reviews} reviews)</span> · <span style="color:var(--${p.stock==='out'?'red':p.stock==='low'?'accent':'green'})">${p.stock==='out'?'Out of Stock':p.stock==='low'?'Low Stock':'In Stock'}</span></div>
+      <div class="pr"><span class="now">${BDT(p.price)}</span>${p.was?`<span class="old">${BDT(p.was)}</span><span class="off">-${off}%</span>`:''}</div>
+      <div class="opt-group"><div class="lab">Colour — <span id="colorName">${p.colors[0].n}</span></div><div class="opt-row">${p.colors.map((c,i)=>`<button class="opt swatch ${i===0?'active':''}" style="background:${c.c}" onclick="setColor(${i})" title="${c.n}"></button>`).join('')}</div></div>
+      <div class="opt-group"><div class="lab">Size (EU)</div><div class="opt-row">${p.sizes.map(s=>`<button class="opt" onclick="setSize(${s},this)">${s}</button>`).join('')}</div></div>
+      <div class="modal-feat"><span>🌧️ Monsoon-tested</span><span>📦 Free Dhaka delivery</span><span>↩️ 7-day exchange</span></div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="addToCartFromModal()">${p.stock==='out'?'Notify When Available':'Add to Cart · '+BDT(p.price)}</button>
+        <button class="btn btn-dark" onclick="toggleWish(${p.id})">❤️</button>
+      </div>
+      <div class="modal-desc">${p.desc}</div>
+      <div class="share-row">Share:<button class="share-btn" onclick="window.open('https://www.facebook.com/solemebd','_blank')">f</button><button class="share-btn" onclick="toast('Shared to WhatsApp')">💬</button><button class="share-btn" onclick="toast('Link copied')">🔗</button></div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--line)"><div class="lab" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">You may also like</div><div style="display:flex;gap:8px">${related.map(r=>`<div onclick="openProduct(${r.id})" style="cursor:pointer;text-align:center;flex:1"><div style="font-size:40px">${r.emoji}</div><div style="font-size:12px;font-weight:600">${r.name}</div><div style="font-size:12px;color:var(--accent)">${BDT(r.price)}</div></div>`).join('')}</div></div>
+    </div>`;
+}
+function setImg(i){curImg=i;document.getElementById('mainImg').textContent=curProduct.gallery[i];document.querySelectorAll('.modal-thumbs .t').forEach((t,j)=>t.classList.toggle('active',i===j));}
+function setColor(i){curColor=i;document.getElementById('colorName').textContent=curProduct.colors[i].n;document.querySelectorAll('.opt.swatch').forEach((s,j)=>s.classList.toggle('active',i===j));}
+function setSize(s,el){curSize=s;document.querySelectorAll('.opt-group .opt:not(.swatch)').forEach(o=>o.classList.remove('active'));el.classList.add('active');}
+function addToCartFromModal(){const p=curProduct;if(p.stock==='out'){toast('We\'ll notify you when back in stock');return;}if(!curSize){toast('Please select a size');return;}
+  addToCart(p.id,p.colors[curColor].n,curSize);closeAll();}
+
+/* ============ CART ============ */
+function addToCart(id,color,size,qty=1){const p=PRODUCTS.find(x=>x.id===id);const key=id+'-'+color+'-'+size;const ex=cart.find(c=>c.key===key);if(ex)ex.qty+=qty;else cart.push({key,id,name:p.name,emoji:p.emoji,price:p.price,color,size,qty});save();updateCounts();renderCart();toast(p.name+' added to cart');}
+function changeQty(key,d){const it=cart.find(c=>c.key===key);if(!it)return;it.qty+=d;if(it.qty<=0)cart=cart.filter(c=>c.key!==key);save();updateCounts();renderCart();if(document.getElementById('view-checkout').classList.contains('active'))renderCheckout();}
+function removeItem(key){cart=cart.filter(c=>c.key!==key);save();updateCounts();renderCart();}
+function cartTotal(){return cart.reduce((s,c)=>s+c.price*c.qty,0);}
+function shipFee(t){return t>=3000||t===0?0:60;}
+function renderCart(){const body=document.getElementById('cartBody');const foot=document.getElementById('cartFoot');
+  if(!cart.length){body.innerHTML='<div class="cart-empty"><div class="e">🛍️</div><p>Your cart is empty.</p><button class="btn btn-primary" style="margin-top:16px" onclick="closeAll();scrollToId(\'shop\')">Explore Collection</button></div>';foot.innerHTML='';return;}
+  body.innerHTML=cart.map(c=>`<div class="cart-item"><div class="ci-thumb">${c.emoji}</div><div class="ci-info"><div class="nm">${c.name}</div><div class="vr">${c.color} · EU ${c.size}</div><div class="pr">${BDT(c.price)}</div><div class="qty"><button onclick="changeQty('${c.key}',-1)">−</button><span>${c.qty}</span><button onclick="changeQty('${c.key}',1)">+</button></div><div class="ci-remove" onclick="removeItem('${c.key}')">Remove</div></div></div>`).join('');
+  const t=cartTotal();const ship=shipFee(t);
+  foot.innerHTML=`<div class="coupon-row"><input id="cartCoupon" placeholder="Discount code (try SOLEME10)"><button class="btn btn-dark btn-sm" onclick="applyCoupon('cartCoupon')">Apply</button></div>
+    <div class="summ-row"><span>Subtotal</span><span>${BDT(t)}</span></div>
+    ${discount?`<div class="summ-row" style="color:var(--green)"><span>Discount</span><span>−${BDT(discount)}</span></div>`:''}
+    <div class="summ-row"><span>Shipping</span><span>${ship?BDT(ship):'Free'}</span></div>
+    <div class="summ-row tot"><span>Total</span><span>${BDT(t-discount+ship)}</span></div>
+    <button class="btn btn-gold btn-block" style="margin-top:14px" onclick="go('checkout')">Proceed to Checkout →</button>`;
+}
+function applyCoupon(inputId){const v=(document.getElementById(inputId).value||'').trim().toUpperCase();const codes={'SOLEME10':.10,'DHAKA15':.15,'SEASON01':.20};if(codes[v]){discount=Math.round(cartTotal()*codes[v]);toast('Coupon applied · '+(codes[v]*100)+'% off');}else{discount=0;toast('Invalid coupon code');}renderCart();if(document.getElementById('view-checkout').classList.contains('active'))renderCheckout();}
+function updateCounts(){const cc=cart.reduce((s,c)=>s+c.qty,0);const cEl=document.getElementById('cartCount');cEl.textContent=cc;cEl.style.display=cc?'grid':'none';const wEl=document.getElementById('wishCount');wEl.textContent=wish.length;wEl.style.display=wish.length?'grid':'none';}
+
+/* ============ WISHLIST ============ */
+function toggleWish(id,el){if(wish.includes(id)){wish=wish.filter(x=>x!==id);toast('Removed from wishlist');}else{wish.push(id);toast('Added to wishlist ❤️');}save();updateCounts();if(el)el.classList.toggle('on');renderProducts();renderWish();}
+function renderWish(){const b=document.getElementById('wishBody');const items=PRODUCTS.filter(p=>wish.includes(p.id));if(!items.length){b.innerHTML='<div class="cart-empty"><div class="e">🤍</div><p>Your wishlist is empty.</p></div>';return;}b.innerHTML=items.map(p=>`<div class="cart-item"><div class="ci-thumb">${p.emoji}</div><div class="ci-info"><div class="nm">${p.name}</div><div class="vr">${p.cat}</div><div class="pr">${BDT(p.price)}</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary btn-sm" onclick="openProduct(${p.id})">View</button><button class="btn btn-dark btn-sm" onclick="toggleWish(${p.id})">Remove</button></div></div></div>`).join('');}
+
+/* ============ COMPARE ============ */
+function addCompare(id){if(compare.includes(id)){toast('Already comparing');return;}if(compare.length>=3){toast('Compare up to 3 items');return;}compare.push(id);renderCompareBar();}
+function renderCompareBar(){const bar=document.getElementById('compareBar');if(!compare.length){bar.classList.remove('open');return;}bar.classList.add('open');document.getElementById('compareItems').innerHTML=compare.map(id=>{const p=PRODUCTS.find(x=>x.id===id);return `<div class="ci">${p.emoji} ${p.name}<span class="x" onclick="rmCompare(${id})">✕</span></div>`}).join('');}
+function rmCompare(id){compare=compare.filter(x=>x!==id);renderCompareBar();}
+function clearCompare(){compare=[];renderCompareBar();}
+function showCompare(){if(compare.length<2){toast('Add at least 2 items to compare');return;}const items=compare.map(id=>PRODUCTS.find(x=>x.id===id));const rows=[['Price',p=>BDT(p.price)],['Category',p=>p.cat],['Rating',p=>'★ '+p.rating],['Stock',p=>p.stock],['Colours',p=>p.colors.map(c=>c.n).join(', ')],['Sizes',p=>'EU '+p.sizes[0]+'–'+p.sizes[p.sizes.length-1]]];
+  document.getElementById('modalContent').innerHTML=`<div style="grid-column:1/-1;padding:34px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h2 style="font-family:var(--display);font-size:26px">Compare Products</h2><button class="icon-btn" onclick="closeAll()">✕</button></div><table><tr><th></th>${items.map(p=>`<th style="text-align:center"><div style="font-size:46px">${p.emoji}</div>${p.name}</th>`).join('')}</tr>${rows.map(([lab,fn])=>`<tr><td style="color:var(--muted)">${lab}</td>${items.map(p=>`<td style="text-align:center">${fn(p)}</td>`).join('')}</tr>`).join('')}<tr><td></td>${items.map(p=>`<td style="text-align:center"><button class="btn btn-gold btn-sm" onclick="openProduct(${p.id})">View</button></td>`).join('')}</tr></table></div>`;
+  document.getElementById('productModal').classList.add('open');document.getElementById('overlay').classList.add('open');}
+
+/* ============ SEARCH ============ */
+function openSearch(){document.getElementById('searchModal').classList.add('open');setTimeout(()=>document.getElementById('searchInput').focus(),100);renderSearchDefault();}
+function closeSearch(){document.getElementById('searchModal').classList.remove('open');}
+function renderSearchDefault(){document.getElementById('trendSugg').innerHTML=['NOIR LOW','Dhaka High','Runners','Limited','Under ৳3K'].map(t=>`<a onclick="document.getElementById('searchInput').value='${t}';doSearch('${t}')">${t}</a>`).join('');document.getElementById('recentSugg').innerHTML=recentSearch.length?recentSearch.map(t=>`<a onclick="document.getElementById('searchInput').value='${t}';doSearch('${t}')">${t}</a>`).join(''):'<span style="color:var(--muted);font-size:13px">No recent searches</span>';}
+function doSearch(q){const res=document.getElementById('searchResults');const def=document.getElementById('searchDefault');q=q.trim();if(!q){res.style.display='none';def.style.display='block';return;}def.style.display='none';res.style.display='flex';
+  const ql=q.toLowerCase();let matches=PRODUCTS.filter(p=>p.name.toLowerCase().includes(ql)||p.cat.toLowerCase().includes(ql)||p.colors.some(c=>c.n.toLowerCase().includes(ql)));
+  if(!matches.length){res.innerHTML=`<div class="no-result">No results for “${q}”.<div class="sugg" style="justify-content:center;margin-top:16px"><a onclick="document.getElementById('searchInput').value='Low';doSearch('Low')">Low Tops</a><a onclick="document.getElementById('searchInput').value='Runner';doSearch('Runner')">Runners</a><a onclick="closeSearch();scrollToId('shop')">Browse all</a></div></div>`;return;}
+  res.innerHTML=matches.map(p=>`<div class="sr" onclick="closeSearch();openProduct(${p.id})"><div class="e">${p.emoji}</div><div><div class="nm">${p.name}</div><div class="ct">${p.cat}</div></div><div class="pr">${BDT(p.price)}</div></div>`).join('');}
+let searchTimer;document.addEventListener('input',e=>{if(e.target.id==='searchInput'){clearTimeout(searchTimer);searchTimer=setTimeout(()=>{const v=e.target.value.trim();if(v.length>2&&!recentSearch.includes(v)){recentSearch.unshift(v);recentSearch=recentSearch.slice(0,5);save();}},1200);}});
+
+/* ============ CHECKOUT ============ */
+function renderCheckout(){const t=cartTotal();const ship=shipFee(t);const ci=document.getElementById('checkoutItems');
+  if(!cart.length){ci.innerHTML='<p style="color:var(--muted)">No items yet — add from the collection.</p>';document.getElementById('checkoutSummary').innerHTML='';return;}
+  ci.innerHTML=cart.map(c=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)"><div style="width:46px;height:46px;border-radius:8px;background:var(--ink-3);display:grid;place-items:center;font-size:24px">${c.emoji}</div><div style="flex:1"><div style="font-weight:600;font-size:14px">${c.name} ×${c.qty}</div><div style="font-size:12px;color:var(--muted)">${c.color} · EU ${c.size}</div></div><div style="color:var(--accent);font-weight:700">${BDT(c.price*c.qty)}</div></div>`).join('');
+  document.getElementById('checkoutSummary').innerHTML=`<div class="summ-row"><span>Subtotal</span><span>${BDT(t)}</span></div>${discount?`<div class="summ-row" style="color:var(--green)"><span>Discount</span><span>−${BDT(discount)}</span></div>`:''}<div class="summ-row"><span>Shipping</span><span>${ship?BDT(ship):'Free'}</span></div><div class="summ-row tot"><span>Total</span><span>${BDT(t-discount+ship)}</span></div>`;}
+function selPay(el,m){document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('active'));el.classList.add('active');payMethod=m;}
+function placeOrder(e){e.preventDefault();const id='SOL-'+Math.floor(100000+Math.random()*900000);cart=[];discount=0;save();updateCounts();renderCart();
+  document.getElementById('view-checkout').innerHTML=`<div class="page-head"><div class="wrap"><div class="crumb">Home / Order Confirmed</div><h1>Order Confirmed ✨</h1></div></div><section class="sec"><div class="wrap" style="max-width:620px;text-align:center"><div style="font-size:80px">✅</div><h2 style="font-family:var(--display);font-size:28px;margin:14px 0">Thank you for your order!</h2><p style="color:var(--bone-dim);margin-bottom:8px">Your SOLÈME order has been received. We'll confirm via WhatsApp within 2 hours. The sole speaks — and so do you.</p><p style="color:var(--accent);font-weight:700;font-size:18px;margin:18px 0">ORDER #${id}</p><p style="color:var(--muted);font-size:14px">Payment: ${payMethod} · An order confirmation has been sent to your email.</p><button class="btn btn-gold" style="margin-top:24px" onclick="location.reload()">Continue Shopping</button></div></section>`;window.scrollTo({top:0});}
+
+/* ============ DRAWERS / MISC ============ */
+function openCart(){renderCart();document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');}
+function openWish(){renderWish();document.getElementById('wishDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');}
+function closeAll(){document.querySelectorAll('.drawer,.modal').forEach(d=>d.classList.remove('open'));document.getElementById('overlay').classList.remove('open');const mi=document.getElementById('mainImg');if(mi)mi.classList.remove('zoom');}
+function toast(msg){const w=document.getElementById('toastWrap');const t=document.createElement('div');t.className='toast';t.innerHTML='✓ '+msg;w.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(20px)';setTimeout(()=>t.remove(),300);},2400);}
+function subscribe(e){e.preventDefault();e.target.reset();toast('Subscribed! Welcome to SOLÈME.');}
+function contactSubmit(e){e.preventDefault();e.target.reset();toast('Message sent — we\'ll reply within 2 hours');}
+function login(e){e.preventDefault();document.getElementById('acctAuth').style.display='none';document.getElementById('acctDash').style.display='block';toast('Welcome back, Sabbir!');}
+function logout(){document.getElementById('acctAuth').style.display='block';document.getElementById('acctDash').style.display='none';toast('Logged out');}
+function acctTab(t,el){document.querySelectorAll('.acct-pane').forEach(p=>p.style.display='none');document.getElementById('acct-'+t).style.display='block';document.querySelectorAll('.acct-tabs .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();closeSearch();}});
+
+/* ============ COUNTDOWN ============ */
+function tickCountdown(){let end=localStorage.getItem('soleme_flash');if(!end){end=Date.now()+11*3600*1000+42*60*1000;localStorage.setItem('soleme_flash',end);}let diff=Math.max(0,end-Date.now());if(diff<=0){end=Date.now()+12*3600*1000;localStorage.setItem('soleme_flash',end);diff=end-Date.now();}const h=Math.floor(diff/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);document.getElementById('cd-h').textContent=String(h).padStart(2,'0');document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0');}
+
+/* ============ INIT ============ */
+renderProducts();updateCounts();tickCountdown();setInterval(tickCountdown,1000);
+</script>
+</body>
+</html>
